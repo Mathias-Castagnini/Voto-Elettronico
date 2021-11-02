@@ -1,6 +1,7 @@
 /**
  * 
- * questa classe descrive l'utente
+ * questa classe descrive l'utente!
+ *
  *
  */
 
