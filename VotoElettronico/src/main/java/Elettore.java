@@ -23,7 +23,7 @@ public class Elettore extends Utente {
 	 * @return the eta
 	 */
 	public int getEta() {
-		return eta;
+		return eta;//modifica
 	}
 
 	/**
