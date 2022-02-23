@@ -18,6 +18,7 @@ public class HomeController extends Controller{
 
     @FXML
     void login(ActionEvent event) {
+    	//changeView("/view/",parameters); per passare alla seconda pagina
     }
 
 	@Override
