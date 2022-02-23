@@ -1,3 +1,5 @@
+package project.model;
+
 /**
  *
  * questa classe descrive lo scrutinatore

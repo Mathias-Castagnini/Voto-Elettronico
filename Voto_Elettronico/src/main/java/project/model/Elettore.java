@@ -1,3 +1,5 @@
+package project.model;
+
 /**
  * 
  * questa classe descrive l'elettore
@@ -23,7 +25,7 @@ public class Elettore extends Utente{
 
 	//METODI
 	/**
-	 * @return the età
+	 * @return the eta
 	 */
 	public int getEta() {
 		return eta;

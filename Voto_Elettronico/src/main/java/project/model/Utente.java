@@ -1,3 +1,4 @@
+package project.model;
 /**
  * 
  * questa classe descrive l'utente
