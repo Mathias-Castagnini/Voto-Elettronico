@@ -24,6 +24,7 @@ public class HomeController extends Controller{
     	String ps = psw.getText();
     	if( cf.isEmpty() || ps.isEmpty()) {
     		Alert l = new Alert(AlertType.ERROR,"Password e o Codice fiscale errato");
+    		l.setHeaderText(null);
     		l.showAndWait();
     	}
     	//changeView("/view/",parameters); per passare alla seconda pagina
