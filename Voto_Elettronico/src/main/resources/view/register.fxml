@@ -24,5 +24,6 @@
       <PasswordField fx:id="cpsw" layoutX="215.0" layoutY="257.0" prefHeight="25.0" prefWidth="216.0" />
       <Label layoutX="265.0" layoutY="240.0" text="Conferma Password" />
       <CheckBox fx:id="scr" layoutX="503.0" layoutY="318.0" mnemonicParsing="false" text="Scrutinatore" />
+      <Button fx:id="back" layoutX="503.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Indietro" />
    </children>
 </AnchorPane>
