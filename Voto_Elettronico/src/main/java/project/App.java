@@ -18,7 +18,7 @@ private  static Scene primaryScene;
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/view/register.fxml"));
+        loader.setLocation(getClass().getResource("/view/home.fxml"));
         Parent content = loader.load(); 
 
         Scene main = new Scene(content);

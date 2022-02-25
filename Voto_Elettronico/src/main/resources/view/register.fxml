@@ -19,7 +19,7 @@
       <Button fx:id="btn" layoutX="215.0" layoutY="302.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="216.0" text="Registra" />
       <PasswordField fx:id="psw" layoutX="215.0" layoutY="253.0" prefHeight="25.0" prefWidth="216.0" promptText="Password" />
       <CheckBox fx:id="scr" layoutX="503.0" layoutY="318.0" mnemonicParsing="false" text="Scrutinatore" />
-      <Button fx:id="back" layoutX="503.0" layoutY="367.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="86.0" text="Indietro" />
+      <Button fx:id="back" layoutX="503.0" layoutY="367.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="86.0" text="Indietro" />
       <TextField fx:id="nome" layoutX="215.0" layoutY="135.0" prefHeight="25.0" prefWidth="216.0" promptText="Nome" />
       <TextField fx:id="cf" layoutX="215.0" layoutY="213.0" prefHeight="25.0" prefWidth="216.0" promptText="Codice fiscale" />
    </children>
