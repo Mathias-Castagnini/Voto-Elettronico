@@ -8,28 +8,36 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 
 public class RegisterController extends Controller{
-	
-	@FXML
+
+    @FXML
     private Button back;
 
     @FXML
     private Button btn;
 
     @FXML
-    private TextField codiceFiscale;
+    private TextField cf;
 
     @FXML
-    private PasswordField cpsw;
+    private TextField cognome;
+
+    @FXML
+    private TextField nome;
 
     @FXML
     private PasswordField psw;
 
     @FXML
     private CheckBox scr;
-    
+
     @FXML
     void login(ActionEvent event) {
 
+    }
+    
+    @FXML
+    void back(ActionEvent event) {
+    	changeView("/view/home.fxml",null);
     }
 
 	@Override
@@ -39,3 +47,5 @@ public class RegisterController extends Controller{
 	}
 
 }
+
+
