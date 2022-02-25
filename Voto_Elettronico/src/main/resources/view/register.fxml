@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
@@ -22,5 +23,6 @@
       <Button fx:id="btn" layoutX="210.0" layoutY="314.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="216.0" text="Registra" />
       <PasswordField fx:id="cpsw" layoutX="215.0" layoutY="257.0" prefHeight="25.0" prefWidth="216.0" />
       <Label layoutX="265.0" layoutY="240.0" text="Conferma Password" />
+      <CheckBox fx:id="scr" layoutX="503.0" layoutY="318.0" mnemonicParsing="false" text="Scrutinatore" />
    </children>
 </AnchorPane>
