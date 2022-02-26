@@ -1,4 +1,5 @@
 package project.controller;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -16,6 +17,9 @@ public class HomeController extends Controller{
     private TextField codiceFiscale;
 
     @FXML
+    private Button pr;
+
+    @FXML
     private PasswordField psw;
 
     @FXML
@@ -30,10 +34,16 @@ public class HomeController extends Controller{
     	//changeView("/view/",parameters); per passare alla seconda pagina
     }
 
-	@Override
-	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
-	}
-
+    @FXML
+    void presenza(ActionEvent event) {
+    	changeView("/view/loginPresenza.fxml",null);
+    }
+    
+    @Override
+    public void init(Object parameters) {
+    	// TODO Auto-generated method stub
+    	
+    }
 }
+
+

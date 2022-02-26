@@ -8,7 +8,6 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controller.HomeController">
    <children>
       <TextField fx:id="codiceFiscale" layoutX="215.0" layoutY="155.0" prefHeight="25.0" prefWidth="216.0" />
@@ -21,5 +20,6 @@
          </font>
       </Text>
       <Button fx:id="btn" layoutX="210.0" layoutY="314.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="216.0" text="Accedi" />
+      <Button fx:id="pr" layoutX="210.0" layoutY="348.0" mnemonicParsing="false" onAction="#presenza" prefHeight="25.0" prefWidth="216.0" text="Autenticazione in presenza" />
    </children>
 </AnchorPane>
