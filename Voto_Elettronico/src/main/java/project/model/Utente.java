@@ -73,5 +73,5 @@ public abstract class Utente {
 		return "Utente [cod_fiscale=" + cod_fiscale + ", nome=" + nome + ", cognome=" + cognome + "]";
 	}
 		
-	
+	public abstract boolean isElettore();
 }
