@@ -1,5 +1,7 @@
 package project.controller;
 
+import java.util.Objects;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -7,6 +9,9 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import project.model.Elettore;
+import project.model.Scrutinatore;
+import project.model.Utente;
 
 public class HomeController extends Controller{
 
@@ -27,11 +32,22 @@ public class HomeController extends Controller{
     	String cf = codiceFiscale.getText();
     	String ps = psw.getText();
     	if( cf.isEmpty() || ps.isEmpty()) {
-    		Alert l = new Alert(AlertType.ERROR,"Password e o Codice fiscale errato");
+    		Alert l = new Alert(AlertType.ERROR,"la password e o il codice fiscale inserito sono vuoti");
     		l.setHeaderText(null);
     		l.showAndWait();
     	}
-    	//changeView("/view/",parameters); per passare alla seconda pagina
+    	//uso dao
+    	Utente u= new Scrutinatore(cf,"giorgio","ripamonti"); 
+    	if(Objects.isNull(u)) {
+    		Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono.");
+    		n.showAndWait();
+    	} else if(u.isElettore()) {
+    			Elettore e= (Elettore) u;
+    			changeView("/view/elettore.fxml",e);
+    	} else{
+    			Scrutinatore scrutinatore = (Scrutinatore) u;
+				changeView("/view/scrutinatore.fxml", scrutinatore);
+    	}
     }
 
     @FXML

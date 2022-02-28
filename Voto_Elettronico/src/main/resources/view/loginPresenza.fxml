@@ -17,7 +17,7 @@
       </Text>
       <Button fx:id="log" layoutX="210.0" layoutY="279.0" mnemonicParsing="false" onAction="#login" prefHeight="25.0" prefWidth="216.0" text="Login" />
       <Button fx:id="bck" layoutX="210.0" layoutY="319.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="216.0" text="Indietro" />
-      <TextField layoutX="210.0" layoutY="132.0" prefHeight="25.0" prefWidth="216.0" promptText="Codice fiscale scrutinatore" />
-      <TextField layoutX="210.0" layoutY="220.0" prefHeight="25.0" prefWidth="216.0" promptText="Codice fiscale votante" />
+      <TextField fx:id="cfs" layoutX="210.0" layoutY="132.0" prefHeight="25.0" prefWidth="216.0" promptText="Codice fiscale scrutinatore" />
+      <TextField fx:id="cfe" layoutX="210.0" layoutY="220.0" prefHeight="25.0" prefWidth="216.0" promptText="Codice fiscale votante" />
    </children>
 </AnchorPane>
