@@ -6,13 +6,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controller.GestioneCandidatoController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controller.GestioneSessioneController">
    <children>
       <SplitPane dividerPositions="0.20707070707070707" layoutX="33.0" layoutY="18.0" orientation="VERTICAL" prefHeight="348.0" prefWidth="570.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                <children>
-                  <Text layoutX="124.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestione Candidati e Partiti" wrappingWidth="319.13671875">
+                  <Text layoutX="179.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestione Sessione" wrappingWidth="209.13671875">
                      <font>
                         <Font size="26.0" />
                      </font>
@@ -21,9 +21,9 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="568.0">
                <children>
-                  <Button fx:id="ins" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserisci" prefHeight="250.0" prefWidth="182.0" text="Inserisci Candidato o Partito" />
-                  <Button fx:id="el" layoutX="192.0" layoutY="14.0" mnemonicParsing="false" onAction="#elimina" prefHeight="250.0" prefWidth="182.0" text="Elimina Candidato o Partito" />
-                  <Button fx:id="mod" layoutX="376.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifica" prefHeight="250.0" prefWidth="182.0" text="Modifica Candidato o Partito" />
+                  <Button fx:id="ins" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserisci" prefHeight="250.0" prefWidth="182.0" text="Inserisci nuova Sessione" />
+                  <Button fx:id="el" layoutX="192.0" layoutY="14.0" mnemonicParsing="false" onAction="#elimina" prefHeight="250.0" prefWidth="182.0" text="Elimina Sessione" />
+                  <Button fx:id="mod" layoutX="376.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifica" prefHeight="250.0" prefWidth="182.0" text="Modifica Sessione" />
                </children>
             </AnchorPane>
         </items>

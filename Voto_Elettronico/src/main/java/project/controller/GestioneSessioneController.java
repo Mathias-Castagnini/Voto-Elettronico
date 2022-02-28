@@ -4,7 +4,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 
-public class GestioneCandidatoController extends Controller{
+public class GestioneSessioneController extends Controller{
 
     @FXML
     private Button bck;

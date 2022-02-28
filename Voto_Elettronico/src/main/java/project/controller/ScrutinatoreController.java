@@ -30,7 +30,7 @@ public class ScrutinatoreController extends Controller{
 
     @FXML
     void session(ActionEvent event) {
-    	//changeView("/view/session.fxml",null);
+    	changeView("/view/gestioneSessione.fxml",null);
     }
 
     @FXML
