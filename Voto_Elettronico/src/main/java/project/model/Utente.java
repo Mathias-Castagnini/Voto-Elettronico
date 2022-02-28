@@ -11,6 +11,7 @@ public abstract class Utente {
 	protected String cod_fiscale;
 	protected String nome;
 	protected String cognome;
+	protected String password;
 	
 	//COSTRUTTORI
 	/**
@@ -18,10 +19,11 @@ public abstract class Utente {
 	 * @param nome
 	 * @param cognome
 	 */
-	public Utente(String cod_fiscale, String nome, String cognome) {
+	public Utente(String nome, String cognome, String cod_fiscale, String password) {
 		this.cod_fiscale = cod_fiscale;
 		this.nome = nome;
 		this.cognome = cognome;
+		this.password = password;
 	}
 
 	//METODI
@@ -74,4 +76,6 @@ public abstract class Utente {
 	}
 		
 	public abstract boolean isElettore();
+
+	public abstract String getPassword();
 }
