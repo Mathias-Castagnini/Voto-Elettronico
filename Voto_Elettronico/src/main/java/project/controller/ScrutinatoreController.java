@@ -35,7 +35,7 @@ public class ScrutinatoreController extends Controller{
 
     @FXML
     void user(ActionEvent event) {
-    	//changeView("/view/utente.fxml",null);
+    	changeView("/view/gestioneUtente.fxml",null);
     }
 
 	@Override
