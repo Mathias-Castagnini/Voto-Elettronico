@@ -25,7 +25,7 @@ public class ScrutinatoreController extends Controller{
 
     @FXML
     void candidate(ActionEvent event) {
-    	//changeView("/view/candidato.fxml",null);
+    	changeView("/view/gestioneCandidati.fxml",null);
     }
 
     @FXML
