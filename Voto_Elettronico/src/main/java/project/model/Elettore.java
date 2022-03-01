@@ -16,8 +16,8 @@ public class Elettore extends Utente{
 	 * @param nome
 	 * @param cognome
 	 */
-	public Elettore(String cod_fiscale, String nome, String cognome) {
-		super(cod_fiscale, nome, cognome);
+	public Elettore(String nome, String cognome, String cod_fisc, String password) {
+		super(nome, cognome, cod_fisc, password);
 	}
 
 	//METODI
@@ -29,6 +29,12 @@ public class Elettore extends Utente{
 	
 	public boolean isElettore() {
 		return true;
+	}
+
+	@Override
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

@@ -37,7 +37,7 @@ public class HomeController extends Controller{
     		l.showAndWait();
     	}
     	//uso dao
-    	Utente u= new Scrutinatore(cf,"giorgio","ripamonti"); 
+    	Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps); 
     	if(Objects.isNull(u)) {
     		Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono.");
     		n.showAndWait();

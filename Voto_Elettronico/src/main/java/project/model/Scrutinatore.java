@@ -15,8 +15,8 @@ public class Scrutinatore extends Utente {
 	 * @param nome
 	 * @param cognome
 	 */
-	public Scrutinatore(String cod_fiscale, String nome, String cognome) {
-		super(cod_fiscale, nome, cognome);
+	public Scrutinatore(String nome, String cognome, String cod_fisc, String password) {
+		super(nome, cognome, cod_fisc, password);
 	}
 
 	//ToString
@@ -28,6 +28,12 @@ public class Scrutinatore extends Utente {
 	@Override
 	public boolean isElettore() {
 		return false;
+	}
+
+	@Override
+	public String getPassword() {
+		
+		return null;
 	}
 
 	
