@@ -36,19 +36,20 @@ public class HomeController extends Controller{
     		Alert l = new Alert(AlertType.ERROR,"la password e o il codice fiscale inserito sono vuoti");
     		l.setHeaderText(null);
     		l.showAndWait();
-    	}
+    	}else {
     	//UtenteDAO dao = Factory;
     	//Utente u =dao.get(cf);
-    	Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps); 
-    	if(Objects.isNull(u)) {
-    		Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono.");
-    		n.showAndWait();
-    	} else if(u.isElettore()) {
-    			Elettore e= (Elettore) u;
-    			changeView("/view/elettore.fxml",e);
-    	} else{
-    			Scrutinatore scrutinatore = (Scrutinatore) u;
-				changeView("/view/scrutinatore.fxml", scrutinatore);
+    		Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps); 
+    		if(Objects.isNull(u)) {
+    			Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono.");
+    			n.showAndWait();
+    		} else if(u.isElettore()) {
+    				Elettore e= (Elettore) u;
+    				changeView("/view/elettore.fxml",e);
+    		} else{
+    				Scrutinatore scrutinatore = (Scrutinatore) u;
+    				changeView("/view/scrutinatore.fxml", scrutinatore);
+    		}
     	}
     }
 

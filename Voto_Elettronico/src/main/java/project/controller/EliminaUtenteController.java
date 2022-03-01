@@ -3,8 +3,10 @@ package project.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 
-public class GestioneUtenteController extends Controller{
+public class EliminaUtenteController extends Controller{
 
     @FXML
     private Button bck;
@@ -13,29 +15,21 @@ public class GestioneUtenteController extends Controller{
     private Button el;
 
     @FXML
-    private Button ins;
-
-    @FXML
-    private Button mod;
+    private ListView<?> listUtenti;
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/scrutinatore.fxml",null);
+    	changeView("/view/gestioneUtente.fxml",null);
     }
 
     @FXML
     void elimina(ActionEvent event) {
-    	changeView("/view/eliminaUtente.fxml",null);
+
     }
 
     @FXML
-    void inserisci(ActionEvent event) {
-    	changeView("/view/inserisciUtente.fxml",null);
-    }
+    void selected(MouseEvent event) {
 
-    @FXML
-    void modifica(ActionEvent event) {
-    	changeView("/view/modificaUtente.fxml",null);
     }
 
 	@Override
