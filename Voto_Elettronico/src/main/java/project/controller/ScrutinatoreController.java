@@ -25,17 +25,17 @@ public class ScrutinatoreController extends Controller{
 
     @FXML
     void candidate(ActionEvent event) {
-    	//changeView("/view/candidato.fxml",null);
+    	changeView("/view/gestioneCandidati.fxml",null);
     }
 
     @FXML
     void session(ActionEvent event) {
-    	//changeView("/view/session.fxml",null);
+    	changeView("/view/gestioneSessione.fxml",null);
     }
 
     @FXML
     void user(ActionEvent event) {
-    	//changeView("/view/utente.fxml",null);
+    	changeView("/view/gestioneUtente.fxml",null);
     }
 
 	@Override
