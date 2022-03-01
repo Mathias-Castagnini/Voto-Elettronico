@@ -40,8 +40,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 
 	@Override
 	public void update(Concorrente t, String[] dati) {
-		
-		
+		//
 	}
 
 	@Override
