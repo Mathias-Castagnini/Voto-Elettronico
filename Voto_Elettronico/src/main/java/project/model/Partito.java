@@ -3,29 +3,31 @@ package project.model;
 import java.util.Iterator;
 import java.util.List;
 
-public class Partito extends Concorrente implements Iterable<Candidato>{
+public class Partito extends Concorrente{
 
-	public List<Candidato> candidati;
+	int id;
+	String nome;
+	String cognome;
+	int id_partito;
+	int is_partito;
 	
-	public Partito(int id,String nome,List<Candidato> candidati) {
-		super(id,nome);
-		this.candidati= candidati;
+	public Partito(int id,String nome, String cognome, int id_partito, int is_partito) {
+		super(id,nome, "", -1, 1);
+		
 	}
 	
 	@Override
 	public String toString() {
-		return "Partito [id=" + id + ", nome=" + nome + " Candidati="+candidati.toString()+"]";
+		return "Partito : "+this.nome;
 	}
 	
 	@Override
-	public boolean isPartito() {
-		return true;
+	public int isPartito() {
+		return 1;
 	}
 
-	@Override
-	public Iterator<Candidato> iterator() {
-		return candidati.iterator();
-	}
+
+
 	
 	
 }

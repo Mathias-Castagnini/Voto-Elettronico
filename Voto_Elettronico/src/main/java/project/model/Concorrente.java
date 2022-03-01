@@ -4,10 +4,16 @@ public abstract class Concorrente {
 
 	protected int id;
 	protected String nome;
+	protected String cognome;
+	protected int id_partito;
+	protected int is_partito;
 	
-	public Concorrente(int id,String nome) {
+	public Concorrente(int id,String nome, String cognome, int id_partito, int is_partito) {
 		this.id = id;
 		this.nome = nome;
+		this.cognome="";
+		this.id_partito=0;
+		this.is_partito=0;
 	}
 	
 	public int getId() {
@@ -22,6 +28,8 @@ public abstract class Concorrente {
 		this.nome=nome;
 	}
 	
-	public abstract boolean isPartito();
+	public int isPartito() {
+		return this.is_partito;
+	}
 }
 
