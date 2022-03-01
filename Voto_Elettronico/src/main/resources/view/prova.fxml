@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controller.provaController">
+   <children>
+      <Button fx:id="bck" layoutX="514.0" layoutY="373.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="89.0" text="Indietro" />
+      <ListView fx:id="listView" layoutX="81.0" layoutY="40.0" onMouseClicked="#selected" prefHeight="322.0" prefWidth="200.0" />
+   </children>
+</AnchorPane>

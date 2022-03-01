@@ -2,6 +2,7 @@ package project.controller;
 
 import java.util.Objects;
 
+import dao.UtenteDAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -36,7 +37,8 @@ public class HomeController extends Controller{
     		l.setHeaderText(null);
     		l.showAndWait();
     	}
-    	//uso dao
+    	//UtenteDAO dao = Factory;
+    	//Utente u =dao.get(cf);
     	Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps); 
     	if(Objects.isNull(u)) {
     		Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono.");
