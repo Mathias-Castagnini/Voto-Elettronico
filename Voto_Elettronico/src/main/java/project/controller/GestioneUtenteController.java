@@ -30,7 +30,7 @@ public class GestioneUtenteController extends Controller{
 
     @FXML
     void inserisci(ActionEvent event) {
-
+    	changeView("/view/inserisciUtente.fxml",null);
     }
 
     @FXML
