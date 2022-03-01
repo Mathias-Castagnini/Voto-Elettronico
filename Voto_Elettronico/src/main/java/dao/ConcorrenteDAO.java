@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import dbconnection.DBConnection;
@@ -71,5 +72,48 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			//VotoLogger.writeToLog("Error : ", Level.WARNING, e);
 		}
 	}
+	
+	public List<Candidato> getCandidati(int id_partito){
+		List<Candidato> l = new ArrayList<Candidato>();
+		String query="SELECT * FROM candidato WHERE id_partito=? AND is_partito=0";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(0, id_partito);
+			ResultSet rs= ps.executeQuery();
+			while(rs.next()) {
+				Candidato c = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), id_partito, 0);
+				l.add(c);
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			//VotoLogger.writeToLog("Error : ", Level.WARNING, e);
+		}
+		return l;
+	}
+	
+	public List<Partito> getPartiti(){
+		List<Partito> l = new ArrayList<Partito>();
+		String query="SELECT * FROM candidato WHERE is_partito=1";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ResultSet rs=ps.executeQuery();
+			while(rs.next()) {
+				Partito p = new Partito(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), -1, 1);
+				l.add(p);
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			//VotoLogger.writeToLog("Error : ", Level.WARNING, e);
+		}
+		return l;
+	}
+	
+	//getPartito
+	
+	//addPartito
+	
+	//addCandidato
 
 }
