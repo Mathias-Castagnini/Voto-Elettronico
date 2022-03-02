@@ -30,7 +30,7 @@ public class GestioneCandidatoController extends Controller{
 
     @FXML
     void inserisci(ActionEvent event) {
-
+    	changeView("/view/inserisciPartito.fxml",null);
     }
 
     @FXML

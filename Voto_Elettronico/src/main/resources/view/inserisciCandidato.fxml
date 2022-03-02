@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controller.InserisciCandidatoController">
+   <children>
+      <SplitPane dividerPositions="0.20707070707070707" layoutX="33.0" layoutY="18.0" orientation="VERTICAL" prefHeight="348.0" prefWidth="570.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+               <children>
+                  <Text layoutX="174.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Inserisci Candidato" wrappingWidth="219.13671875">
+                     <font>
+                        <Font size="26.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="568.0">
+               <children>
+                  <Button fx:id="ins" layoutX="200.0" layoutY="191.0" mnemonicParsing="false" onAction="#inserisci" prefHeight="25.0" prefWidth="168.0" text="Inserisci" />
+                  <TextField fx:id="n" layoutX="200.0" layoutY="47.0" prefHeight="25.0" prefWidth="168.0" promptText="Nome Candidato" />
+                  <TextField fx:id="c" layoutX="200.0" layoutY="92.0" prefHeight="25.0" prefWidth="168.0" promptText="Cognome Candidato" />
+                  <TextField fx:id="partito" layoutX="200.0" layoutY="136.0" prefHeight="25.0" prefWidth="168.0" promptText="Nome Partito" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+      <Button fx:id="bck" layoutX="514.0" layoutY="373.0" mnemonicParsing="false" onAction="#back" prefHeight="25.0" prefWidth="89.0" text="Indietro" />
+      <Line endX="100.0" layoutX="-203.0" layoutY="144.0" startX="-100.0" />
+   </children>
+</AnchorPane>
