@@ -35,7 +35,7 @@ public class GestioneCandidatoController extends Controller{
 
     @FXML
     void modifica(ActionEvent event) {
-
+    	changeView("/view/modificaPartiti.fxml",null);
     }
 
 	@Override
