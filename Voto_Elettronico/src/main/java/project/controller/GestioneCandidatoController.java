@@ -25,7 +25,7 @@ public class GestioneCandidatoController extends Controller{
 
     @FXML
     void elimina(ActionEvent event) {
-
+    	changeView("/view/eliminaCandidati.fxml",null);
     }
 
     @FXML
