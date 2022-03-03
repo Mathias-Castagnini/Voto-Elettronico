@@ -22,7 +22,7 @@ public class GestioneSessioneController extends Controller{
 
     @FXML
     void elimina(ActionEvent event) {
-
+    	changeView("/view/terminaSessione.fxml",null);
     }
 
     @FXML
