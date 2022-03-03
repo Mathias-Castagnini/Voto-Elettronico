@@ -29,7 +29,7 @@ public class HomeController extends Controller{
     private PasswordField psw;
 
     @FXML
-    void login(ActionEvent event) {
+    void login(ActionEvent event) throws Exception {
     	String cf = codiceFiscale.getText();
     	String ps = psw.getText();
     	if( cf.isEmpty() || ps.isEmpty()) {
@@ -39,7 +39,7 @@ public class HomeController extends Controller{
     	}else {
     	//UtenteDAO dao = Factory;
     	//Utente u =dao.get(cf);
-    		Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps); 
+    		Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps, "scrutinatore"); 
     		if(Objects.isNull(u)) {
     			Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono.");
     			n.showAndWait();

@@ -27,9 +27,9 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				if (rs.getBoolean("is_partito"))
-					c = new Partito(rs.getInt(0), rs.getString("nome"), "", -1, 1);
+					c = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1);
 				else
-					c = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), rs.getInt(3), 0);
+					c = new Candidato(rs.getInt("id"), rs.getString("nome"),rs.getString("cognome"),rs.getInt("id_partito"));
 			}
 		} catch (SQLException e) {
 			VotoLogger.writeToLog("error: ", Level.WARNING, e);
@@ -39,17 +39,45 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 
 	@Override
 	public List<Concorrente> getAll() {
-		return null;
+		List<Concorrente> l=null;
+		String query="SELECT * FROM candidato";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				if(rs.getInt("is_partito")==1) {
+					l.add(new Partito(rs.getInt("id"),rs.getString("nome"),"",-1));
+				}else {
+					l.add(new Partito(rs.getInt("id"),rs.getString("nome"),rs.getString("cognome"),rs.getInt("id_partito")));
+				}
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("error: ", Level.WARNING, e);
+		}
+		return l;
 	}
 
-	@Override
-	public void update(Concorrente t, String[] dati) {
-		//
+	public void update(Concorrente t, int id, String n, String c, int idp, int isp) {
+		String query="UPDATE candidato SET nome=?, cognome = ?, id_partito=?, is_partito=? WHERE id = ?";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setString(1, n);
+			ps.setString(2, c);
+			ps.setInt(3, idp);
+			ps.setInt(4, isp);
+			ps.executeUpdate();
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("error: ", Level.WARNING, e);
+		}
 	}
 
 	@Override
 	public void delete(Concorrente t) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -82,11 +110,10 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
-			ps.setInt(0, id_partito);
+			ps.setInt(1, id_partito);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Candidato c = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), id_partito,
-						0);
+				Candidato c = new Candidato(rs.getInt("id"), rs.getString("nome"), rs.getString("cognome"), id_partito);
 				l.add(c);
 			}
 			DBConnection.getInstance().closeConnection();
@@ -104,7 +131,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Partito p = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1, 1);
+				Partito p = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1);
 				l.add(p);
 			}
 			DBConnection.getInstance().closeConnection();
@@ -123,7 +150,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				p = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1, 1);
+				p = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1);
 			}
 		} catch (SQLException e) {
 			VotoLogger.writeToLog("Error : ", Level.WARNING, e);
@@ -138,7 +165,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			PreparedStatement ps = DBConnection.getInstance().prepara(query, Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, p.getNome());
 			ps.executeUpdate();
-			ResultSet rs = ps.getGeneratedKeys();
+			//ResultSet rs = ps.getGeneratedKeys();
 		} catch (SQLException e) {
 			VotoLogger.writeToLog("Error : ", Level.WARNING, e);
 		}

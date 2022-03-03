@@ -78,4 +78,6 @@ public abstract class Utente {
 	public abstract boolean isElettore();
 
 	public abstract String getPassword();
+	
+	public abstract String getRuolo();
 }

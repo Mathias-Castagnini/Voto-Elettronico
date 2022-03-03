@@ -36,7 +36,7 @@ public class LoginPresenzaController extends Controller{
     }
 
     @FXML
-    void login(ActionEvent event) {
+    void login(ActionEvent event) throws Exception {
     	String cf = cfe.getText();
     	String cfScrutinatore = cfs.getText();
     	String ps = psw.getText();
@@ -46,7 +46,7 @@ public class LoginPresenzaController extends Controller{
     		l.showAndWait();
     	}
     	//uso dao
-    	Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps);//scrutinatore che fa accedere
+    	Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps, "scrutinatore");//scrutinatore che fa accedere
     	if(Objects.isNull(u)) {
     		Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono");
     		n.showAndWait();
@@ -55,7 +55,7 @@ public class LoginPresenzaController extends Controller{
 			e.showAndWait();
     	}else {
     		//dao per ottenere l'elettore 
-    		Utente el= new Elettore("giorgio","ripamonti", cf, ps);
+    		Utente el= new Elettore("giorgio","ripamonti", cf, ps, "scrutinatore");
     		if (Objects.isNull(el)) {
     			Alert t = new Alert(AlertType.ERROR, "I dati dell'elettore inserito non esistono.");
     			t.showAndWait();

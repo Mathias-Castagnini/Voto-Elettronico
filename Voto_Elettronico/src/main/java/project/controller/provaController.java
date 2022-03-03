@@ -3,7 +3,7 @@ package project.controller;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
-
+import java.util.logging.Level;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,6 +13,7 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import logger.VotoLogger;
 import project.model.Elettore;
 import project.model.Scrutinatore;
 import project.model.Utente;
@@ -43,7 +44,12 @@ public class provaController extends Controller implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		List<Utente> l=List.of(new Scrutinatore("dsfsfd","dfsa","dsadf", null),new Scrutinatore("dsfsfd","dfsa","dsadf", null),new Elettore("dsfsfd","dfsa","dsadf", null),new Scrutinatore("dsfsfd","dfsa","dsadf", null));
+		List<Utente> l = null;
+		try {
+			l = List.of(new Scrutinatore("dsfsfd","dfsa","dsadf", null,"scrutinatore"),new Scrutinatore("dsfsfd","dfsa","dsadf", null,"scrutinatore"),new Elettore("dsfsfd","dfsa","dsadf", null,"elettore"),new Scrutinatore("dsfsfd","dfsa","dsadf", null,"elettore"));
+		} catch (Exception e) {
+			VotoLogger.writeToLog("Error:", Level.WARNING, e);
+		}
 		listView.setCellFactory(new Callback<ListView<Utente>, ListCell<Utente>>() {
 
             @Override

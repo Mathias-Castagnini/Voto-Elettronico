@@ -6,35 +6,58 @@ package project.model;
  *
  */
 
-
 public class Scrutinatore extends Utente {
-
+	
+	//ATTRIBUTI
+	String nome;
+	String cognome;
+	String cod_fisc;
+	String password;
+	String ruolo;
+	
+	
 	//COSTRUTTORI
-	/**
-	 * @param cod_fiscale
-	 * @param nome
-	 * @param cognome
-	 */
-	public Scrutinatore(String nome, String cognome, String cod_fisc, String password) {
+	public Scrutinatore(String nome, String cognome, String cod_fisc, String password, String ruolo) throws Exception {
 		super(nome, cognome, cod_fisc, password);
+		switch(ruolo) {
+		case "scrutinatore":
+			this.ruolo="scrutinatore";
+			break;
+		case "elettore":
+			this.ruolo="elettore";
+			break;
+		default:
+			throw new Exception();
+		}
 	}
 
-	//ToString
+	//METODI
 	@Override
 	public String toString() {
-		return "Scrutinatore [cod_fiscale=" + cod_fiscale + ", nome=" + nome + ", cognome=" + cognome + "]";
+		return "Scrutinatore :"+nome+" "+cognome+" "+cod_fisc;
 	}
 
-	@Override
 	public boolean isElettore() {
 		return false;
 	}
 
-	@Override
 	public String getPassword() {
-		
-		return null;
+		return this.password;
 	}
 
+	public String getNome() {
+		return this.nome;
+	}
 	
+	public String getCognome() {
+		return this.cognome;
+	}
+	
+	public String getCodFisc() {
+		return this.cod_fisc;
+	}
+	
+	public String getRuolo() {
+		return "scrutinatore";
+	}
 }
