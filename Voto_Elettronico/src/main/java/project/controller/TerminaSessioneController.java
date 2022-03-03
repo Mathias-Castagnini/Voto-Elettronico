@@ -8,14 +8,20 @@ import javafx.scene.input.MouseEvent;
 
 public class TerminaSessioneController extends Controller{
 
-    @FXML
+	@FXML
     private Button bck;
 
     @FXML
-    private ListView<?> listSessioni;
+    private ListView<?> listAttive;
 
     @FXML
     private Button termina;
+
+    @FXML
+    private ListView<?> terminate;
+
+    @FXML
+    private Button visualizza;
 
     @FXML
     void back(ActionEvent event) {
@@ -23,12 +29,22 @@ public class TerminaSessioneController extends Controller{
     }
 
     @FXML
-    void selectedSessione(MouseEvent event) {
+    void selectedAttiva(MouseEvent event) {
+
+    }
+
+    @FXML
+    void selectedTerminate(MouseEvent event) {
 
     }
 
     @FXML
     void terminaSessione(ActionEvent event) {
+
+    }
+
+    @FXML
+    void visualizzaRisutlato(ActionEvent event) {
 
     }
 
