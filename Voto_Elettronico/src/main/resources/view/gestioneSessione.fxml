@@ -21,9 +21,8 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="568.0">
                <children>
-                  <Button fx:id="ins" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserisci" prefHeight="250.0" prefWidth="182.0" text="Inserisci nuova Sessione" />
-                  <Button fx:id="el" layoutX="192.0" layoutY="14.0" mnemonicParsing="false" onAction="#elimina" prefHeight="250.0" prefWidth="182.0" text="Elimina Sessione" />
-                  <Button fx:id="mod" layoutX="376.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifica" prefHeight="250.0" prefWidth="182.0" text="Modifica Sessione" />
+                  <Button fx:id="ins" layoutX="10.0" layoutY="15.0" mnemonicParsing="false" onAction="#inserisci" prefHeight="250.0" prefWidth="268.0" text="Crea nuova Sessione" />
+                  <Button fx:id="el" layoutX="290.0" layoutY="16.0" mnemonicParsing="false" onAction="#elimina" prefHeight="250.0" prefWidth="268.0" text="Termina Sessione" />
                </children>
             </AnchorPane>
         </items>

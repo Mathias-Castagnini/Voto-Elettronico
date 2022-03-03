@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 
 public class GestioneSessioneController extends Controller{
 
-    @FXML
+	@FXML
     private Button bck;
 
     @FXML
@@ -14,9 +14,6 @@ public class GestioneSessioneController extends Controller{
 
     @FXML
     private Button ins;
-
-    @FXML
-    private Button mod;
 
     @FXML
     void back(ActionEvent event) {
@@ -30,12 +27,7 @@ public class GestioneSessioneController extends Controller{
 
     @FXML
     void inserisci(ActionEvent event) {
-
-    }
-
-    @FXML
-    void modifica(ActionEvent event) {
-
+    	changeView("/view/creaSessione.fxml",null);
     }
 
 	@Override
