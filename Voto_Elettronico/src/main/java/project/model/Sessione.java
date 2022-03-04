@@ -9,14 +9,12 @@ public class Sessione implements Iterable{
 	String tipologia;
 	String vittoria;
 	String domanda;
-	List <Partito> partiti;
 	
-	public Sessione(int id,String tipologia, String vittoria, String domanda, List <Partito> partiti) {
+	public Sessione(int id,String tipologia, String vittoria, String domanda) {
 		this.id = id;
 		this.tipologia = tipologia;
 		this.vittoria = vittoria;
 		this.domanda = domanda;
-		this.partiti = partiti;
 	}
 	
 	public int getId() {
@@ -51,8 +49,4 @@ public class Sessione implements Iterable{
 		this.domanda = domanda;
 	}
 
-	@Override
-	public Iterator<Partito> iterator() {
-		return partiti.iterator();
-	}
 }

@@ -76,15 +76,11 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 	}
 
 	@Override
-	public void delete(Concorrente t) {
-		
-
+	public void delete(Concorrente t) {	
 	}
 
 	@Override
 	public void save(Concorrente t) {
-		// TODO Auto-generated method stub
-
 	}
 
 	public void saveCandidato(Candidato c) {
