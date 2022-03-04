@@ -42,17 +42,17 @@ public class UtenteDAO implements GenericDAO<Utente>{
 		return u;
 	}
 
-	public List<Utente> getAll() throws Exception{
+	public List<Utente> getAll() {
 		List<Utente> l= new ArrayList<Utente>();
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara("SELECT * FROM utente");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				if(rs.getString("ruolo").equalsIgnoreCase("Elettore")) {
-					l.add(new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"),"elettore"));
+				if(rs.getString("ruolo").equalsIgnoreCase("elettore")) {
+					l.add(new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password")));
 				}else {
-					l.add(new Scrutinatore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"),"scrutinatore"));
+					l.add(new Scrutinatore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password")));
 				}
 				
 			}
