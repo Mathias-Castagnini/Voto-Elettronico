@@ -2,6 +2,9 @@ package project.controller;
 
 import java.util.Objects;
 
+import dao.UtenteDAO;
+import factory.AlertFactory;
+import factory.DAOFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -41,27 +44,22 @@ public class LoginPresenzaController extends Controller{
     	String cfScrutinatore = cfs.getText();
     	String ps = psw.getText();
     	if( cf.isEmpty() || ps.isEmpty() || cfScrutinatore.isEmpty()) {
-    		Alert l = new Alert(AlertType.ERROR,"la password e o i codici fiscali inserito sono vuoti");
-    		l.setHeaderText(null);
-    		l.showAndWait();
-    	}
-    	//uso dao
-    	Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps, "scrutinatore");//scrutinatore che fa accedere
-    	if(Objects.isNull(u)) {
-    		Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono");
-    		n.showAndWait();
-    	} else if(u.isElettore()){
-    		Alert e = new Alert(AlertType.ERROR, "Devi essere uno scrutinatore per eseguire questa azione.");
-			e.showAndWait();
+    		AlertFactory.getInstance().getSlimAlert(AlertType.INFORMATION, "la password e il codice fiscale non devono essere di lungezza pari a 0").showAndWait();
     	}else {
-    		//dao per ottenere l'elettore 
-    		Utente el= new Elettore("giorgio","ripamonti", cf, ps, "scrutinatore");
-    		if (Objects.isNull(el)) {
-    			Alert t = new Alert(AlertType.ERROR, "I dati dell'elettore inserito non esistono.");
-    			t.showAndWait();
-			} else {
-				changeView("/view/elettore.fxml", null);
-			}
+    		UtenteDAO dao = (UtenteDAO) DAOFactory.getInstance().getUtenteDAO();
+    		Utente u =dao.get(cf);
+    		if(Objects.isNull(u)) {
+    			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
+    		} else if(u.isElettore()){
+    			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Devi essere uno scrutinatore per eseguire questa azione.").showAndWait();
+    		}else {
+    			Elettore el = (Elettore) dao.get(cf);
+    			if (Objects.isNull(el)) {
+    				AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
+    			} else {
+    				changeView("/view/elettore.fxml", null);
+    			}
+    		}
     	}
     }
 

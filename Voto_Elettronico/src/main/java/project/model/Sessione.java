@@ -49,4 +49,10 @@ public class Sessione implements Iterable{
 		this.domanda = domanda;
 	}
 
+	@Override
+	public Iterator iterator() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
