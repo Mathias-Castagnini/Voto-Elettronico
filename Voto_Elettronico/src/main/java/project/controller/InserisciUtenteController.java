@@ -60,7 +60,6 @@ public class InserisciUtenteController extends Controller{
     		}else {
     			utente = new Scrutinatore(nome, cognome, codice, password);
     		}
-    		System.out.println(utente);
     		UtenteDAO dao = (UtenteDAO) DAOFactory.getInstance().getUtenteDAO();
         	dao.save(utente, password);
     	}
