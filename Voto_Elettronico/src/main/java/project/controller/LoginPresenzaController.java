@@ -7,13 +7,11 @@ import factory.AlertFactory;
 import factory.DAOFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import project.model.Elettore;
-import project.model.Scrutinatore;
 import project.model.Utente;
 
 public class LoginPresenzaController extends Controller{

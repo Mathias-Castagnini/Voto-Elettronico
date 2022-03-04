@@ -9,10 +9,6 @@ package project.model;
 public class Scrutinatore extends Utente {
 	
 	//ATTRIBUTI
-	String nome;
-	String cognome;
-	String cod_fisc;
-	String password;
 	String ruolo;
 	
 	
@@ -30,11 +26,16 @@ public class Scrutinatore extends Utente {
 			throw new Exception();
 		}
 	}
+	
+	public Scrutinatore(String nome, String cognome, String cod_fisc, String password){
+		super(nome, cognome, cod_fisc, password);
+		ruolo="Scrutinatore";
+	}
 
 	//METODI
 	@Override
 	public String toString() {
-		return "Scrutinatore :"+nome+" "+cognome+" "+cod_fisc;
+		return "Scrutinatore :"+nome+" "+cognome+" "+super.cod_fiscale;
 	}
 
 	public boolean isElettore() {
@@ -43,18 +44,6 @@ public class Scrutinatore extends Utente {
 
 	public String getPassword() {
 		return this.password;
-	}
-
-	public String getNome() {
-		return this.nome;
-	}
-	
-	public String getCognome() {
-		return this.cognome;
-	}
-	
-	public String getCodFisc() {
-		return this.cod_fisc;
 	}
 	
 	public String getRuolo() {
