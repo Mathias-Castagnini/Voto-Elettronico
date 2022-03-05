@@ -6,13 +6,9 @@ package project.model;
 
 public class Elettore extends Utente{
 	
-	//ATTRIBUTI
-	private String ruolo;
-	
 	//COSTRUTTORE
 	public Elettore(String nome, String cognome, String cod_fisc, String password){
 		super(nome, cognome, cod_fisc, password);
-		ruolo= "Elettore";
 	}
 
 	//METODI
