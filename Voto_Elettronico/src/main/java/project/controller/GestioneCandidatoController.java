@@ -33,11 +33,6 @@ public class GestioneCandidatoController extends Controller{
     	changeView("/view/inserisciPartito.fxml",null);
     }
 
-    @FXML
-    void modifica(ActionEvent event) {
-    	changeView("/view/modificaPartiti.fxml",null);
-    }
-
 	@Override
 	public void init(Object parameters) {
 		// TODO Auto-generated method stub

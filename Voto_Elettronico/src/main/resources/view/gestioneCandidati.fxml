@@ -21,9 +21,8 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="568.0">
                <children>
-                  <Button fx:id="ins" layoutX="7.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserisci" prefHeight="250.0" prefWidth="182.0" text="Inserisci Candidato o Partito" />
-                  <Button fx:id="el" layoutX="192.0" layoutY="14.0" mnemonicParsing="false" onAction="#elimina" prefHeight="250.0" prefWidth="182.0" text="Elimina Candidato o Partito" />
-                  <Button fx:id="mod" layoutX="376.0" layoutY="14.0" mnemonicParsing="false" onAction="#modifica" prefHeight="250.0" prefWidth="182.0" text="Modifica Candidato o Partito" />
+                  <Button fx:id="ins" layoutX="25.0" layoutY="14.0" mnemonicParsing="false" onAction="#inserisci" prefHeight="250.0" prefWidth="255.0" text="Inserisci Candidato o Partito" />
+                  <Button fx:id="el" layoutX="291.0" layoutY="14.0" mnemonicParsing="false" onAction="#elimina" prefHeight="250.0" prefWidth="255.0" text="Elimina Candidato o Partito" />
                </children>
             </AnchorPane>
         </items>
