@@ -46,7 +46,7 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 				l.add(new Sessione(rs.getInt("id"),rs.getString("tipologia"),rs.getString("vittoria"),rs.getString("domanda")));
 			}
 			DBConnection.getInstance().closeConnection();
-		}catch(SQLException e) {
+		}catch(Exception e) {
 			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
 		}
 		return l;

@@ -11,10 +11,13 @@ public class Sessione implements Iterable{
 	String domanda;
 	Boolean stato;
 	
-	public Sessione(int id,String tipologia, String vittoria, String domanda) {
+	public Sessione(int id,String tipologia, String vittoria, String domanda) throws Exception {
 		this.id = id;
 		this.tipologia = tipologia;
 		this.vittoria = vittoria;
+		if(tipologia.equals("referendum") && domanda==null) throw new Exception();
+		if(!(tipologia.equals("referendum") && (vittoria.equals("referendum") || vittoria.equals("referendum quorum")))) throw new Exception();
+		if(!(tipologia.equals("referendum")) && (vittoria.equals("referendum") || vittoria.equals("referendum quorum"))) throw new Exception();
 		this.domanda = domanda;
 		this.stato=true;
 	}
