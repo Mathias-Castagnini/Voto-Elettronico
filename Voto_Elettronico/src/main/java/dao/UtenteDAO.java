@@ -15,8 +15,6 @@ import dbconnection.DBConnection;
 import logger.VotoLogger;
 import project.model.Elettore;
 import project.model.Scrutinatore;
-//import project.logger.VotoLogger;
-//import project.dbconnection.DBconnection;
 import project.model.Utente;
 
 public class UtenteDAO implements GenericDAO<Utente>{
@@ -44,17 +42,17 @@ public class UtenteDAO implements GenericDAO<Utente>{
 		return u;
 	}
 
-	public List<Utente> getAll() throws Exception{
+	public List<Utente> getAll() {
 		List<Utente> l= new ArrayList<Utente>();
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara("SELECT * FROM utente");
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				if(rs.getString("ruolo").equalsIgnoreCase("Elettore")) {
-					l.add(new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"),"elettore"));
+				if(rs.getString("ruolo").equalsIgnoreCase("elettore")) {
+					l.add(new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password")));
 				}else {
-					l.add(new Scrutinatore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"),"scrutinatore"));
+					l.add(new Scrutinatore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password")));
 				}
 				
 			}
@@ -133,14 +131,14 @@ public class UtenteDAO implements GenericDAO<Utente>{
 			digest = MessageDigest.getInstance("SHA-1");
 			digest.reset();
 			digest.update(psw.getBytes("utf8"));
-			sha1 = String.format("%040%", new BigInteger(1, digest.digest()));
+			sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
 			String query ="INSERT INTO Utente(nome,cognome,cod_fisc,password,ruolo) VALUES(?,?,?,?,?);";
 			if(u==null) throw new NullPointerException();
 			String ruolo="";
 			if(u.isElettore())
-				ruolo="Elettore";
+				ruolo="elettore";
 			else
-				ruolo ="Scrutinatore";
+				ruolo ="scrutinatore";
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ps.setString(1, u.getNome()); 

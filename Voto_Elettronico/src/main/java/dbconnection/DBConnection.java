@@ -4,7 +4,7 @@ import java.sql.*;
 
 public class DBConnection {
 	private String driverClassName = "com.mysql.cj.jdbc.Driver";
-	private String connectionUrl = "jdbc:mysql://localhost/votoelettronico";
+	private String connectionUrl = "jdbc:mysql://localhost/dbvoto";
 	private String dbUser = "root";
 	private String dbPwd = "";
 	

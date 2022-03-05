@@ -39,7 +39,7 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 	}
 
 	@Override
-	public List<Sessione> getAll() throws Exception {
+	public List<Sessione> getAll(){
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -7,10 +7,6 @@ package project.model;
 public class Elettore extends Utente{
 	
 	//ATTRIBUTI
-	String nome;
-	String cognome;
-	String cod_fisc;
-	String password;
 	String ruolo;
 	
 	//COSTRUTTORE
@@ -18,20 +14,25 @@ public class Elettore extends Utente{
 		super(nome, cognome, cod_fisc, password);
 		switch(ruolo) {
 		case "scrutinatore":
-			this.ruolo="scrutinatore";
+			this.ruolo="Scrutinatore";
 			break;
 		case "elettore":
-			this.ruolo="elettore";
+			this.ruolo="Elettore";
 			break;
 		default:
 			throw new Exception();
 		}
 	}
+	
+	public Elettore(String nome, String cognome, String cod_fisc, String password){
+		super(nome, cognome, cod_fisc, password);
+		ruolo= "Elettore";
+	}
 
 	//METODI
 	@Override
 	public String toString() {
-		return "Elettore : "+nome+" "+cognome+" "+cod_fisc;
+		return "Elettore : "+nome+" "+cognome+" "+super.cod_fiscale;
 	}
 	
 	public boolean isElettore() {
@@ -40,18 +41,6 @@ public class Elettore extends Utente{
 
 	public String getPassword() {
 		return this.password;
-	}
-	
-	public String getNome() {
-		return this.nome;
-	}
-
-	public String getCognome() {
-		return this.cognome;
-	}
-	
-	public String getCodFisc() {
-		return this.cod_fisc;
 	}
 	
 	public String getRuolo() {

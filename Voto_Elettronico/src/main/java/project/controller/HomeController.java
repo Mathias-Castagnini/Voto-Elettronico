@@ -3,9 +3,10 @@ package project.controller;
 import java.util.Objects;
 
 import dao.UtenteDAO;
+import factory.AlertFactory;
+import factory.DAOFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
@@ -33,16 +34,12 @@ public class HomeController extends Controller{
     	String cf = codiceFiscale.getText();
     	String ps = psw.getText();
     	if( cf.isEmpty() || ps.isEmpty()) {
-    		Alert l = new Alert(AlertType.ERROR,"la password e o il codice fiscale inserito sono vuoti");
-    		l.setHeaderText(null);
-    		l.showAndWait();
+    		AlertFactory.getInstance().getSlimAlert(AlertType.INFORMATION, "la password e il codice fiscale non devono essere di lungezza pari a 0").showAndWait();
     	}else {
-    	//UtenteDAO dao = Factory;
-    	//Utente u =dao.get(cf);
-    		Utente u= new Scrutinatore("giorgio","ripamonti", cf, ps, "scrutinatore"); 
+    		UtenteDAO dao = (UtenteDAO) DAOFactory.getInstance().getUtenteDAO();
+    		Utente u =dao.get(cf);
     		if(Objects.isNull(u)) {
-    			Alert n = new Alert(AlertType.ERROR,"I dati dell'utente inserito non esistono.");
-    			n.showAndWait();
+    			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
     		} else if(u.isElettore()) {
     				Elettore e= (Elettore) u;
     				changeView("/view/elettore.fxml",e);
