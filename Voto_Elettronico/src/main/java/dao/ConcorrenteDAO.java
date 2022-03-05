@@ -76,7 +76,33 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 	}
 
 	@Override
-	public void delete(Concorrente t) {	
+	public void delete(Concorrente t) {
+		String query;
+		try {
+			if(t.isPartito()==1) {
+				PreparedStatement ps;
+				query = "DELETE FROM candidato WHERE id_partito=?";
+				DBConnection.getInstance().openConnection();
+				 ps = DBConnection.getInstance().prepara(query);
+				ps.setInt(1, t.getId());
+				ps.execute();
+				query = "DELETE FROM candidato WHERE id=?";
+				DBConnection.getInstance().openConnection();
+				ps = DBConnection.getInstance().prepara(query);
+				ps.setInt(1, t.getId());
+				ps.execute();
+			}else {
+				int id = t.getId();
+				query = "DELETE FROM candidato WHERE id = ?";
+				DBConnection.getInstance().openConnection();
+				PreparedStatement ps = DBConnection.getInstance().prepara(query);
+				ps.setInt(1, id);
+				ps.execute();
+			}
+			DBConnection.getInstance().closeConnection();
+		} catch (SQLException e) {
+			VotoLogger.writeToLog("Error : ", Level.WARNING, e);
+		}
 	}
 
 	@Override

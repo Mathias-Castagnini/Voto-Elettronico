@@ -29,9 +29,6 @@ public class InserisciPartitoController extends Controller{
     private Button ins;
 
     @FXML
-    private ListView<?> listPartiti;
-
-    @FXML
     private TextField n;
 
     @FXML

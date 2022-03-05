@@ -26,5 +26,7 @@ public abstract class Concorrente {
 		this.nome=nome;
 	}
 	
+	public abstract  int isPartito();
+	
 }
 

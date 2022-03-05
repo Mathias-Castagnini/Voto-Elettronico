@@ -1,16 +1,13 @@
 package project.model;
 
 public class Candidato extends Concorrente{
-
-	int id;
-	String nome;
-	String cognome;
-	int id_partito;
-	int is_partito;
 	
 	public Candidato(int id,String nome,String cognome, int id_partito) {
 		super(id, nome, cognome, id_partito);
-		this.is_partito=0;
+	}
+	
+	public Candidato(String nome,String cognome, int id_partito) {
+		super(0, nome, cognome, id_partito);
 	}
 	
 	public int getId() {
