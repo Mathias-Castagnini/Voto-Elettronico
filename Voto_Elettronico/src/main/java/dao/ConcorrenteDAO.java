@@ -27,7 +27,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				if (rs.getBoolean("is_partito"))
-					c = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1);
+					c = new Partito(rs.getInt("id"), rs.getString("nome"), -1);
 				else
 					c = new Candidato(rs.getInt("id"), rs.getString("nome"),rs.getString("cognome"),rs.getInt("id_partito"));
 			}
@@ -47,9 +47,9 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
 				if(rs.getInt("is_partito")==1) {
-					l.add(new Partito(rs.getInt("id"),rs.getString("nome"),"",-1));
+					l.add(new Partito(rs.getInt("id"),rs.getString("nome"),-1));
 				}else {
-					l.add(new Partito(rs.getInt("id"),rs.getString("nome"),rs.getString("cognome"),rs.getInt("id_partito")));
+					l.add(new Partito(rs.getInt("id"),rs.getString("nome"),rs.getInt("id_partito")));
 				}
 			}
 			DBConnection.getInstance().closeConnection();
@@ -127,7 +127,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				Partito p = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1);
+				Partito p = new Partito(rs.getInt("id"), rs.getString("nome"), -1);
 				l.add(p);
 			}
 			DBConnection.getInstance().closeConnection();
@@ -146,7 +146,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			ps.setInt(1, id);
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				p = new Partito(rs.getInt("id"), rs.getString("nome"), "", -1);
+				p = new Partito(rs.getInt("id"), rs.getString("nome"), -1);
 			}
 		} catch (SQLException e) {
 			VotoLogger.writeToLog("Error : ", Level.WARNING, e);
