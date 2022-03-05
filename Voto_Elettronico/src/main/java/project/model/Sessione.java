@@ -9,12 +9,14 @@ public class Sessione implements Iterable{
 	String tipologia;
 	String vittoria;
 	String domanda;
+	Boolean stato;
 	
-	public Sessione(int id,String tipologia, String vittoria, String domanda) {
+	public Sessione(int id,String tipologia, String vittoria, String domanda, Boolean stato) {
 		this.id = id;
 		this.tipologia = tipologia;
 		this.vittoria = vittoria;
 		this.domanda = domanda;
+		this.stato=true;
 	}
 	
 	public int getId() {
@@ -47,6 +49,12 @@ public class Sessione implements Iterable{
 
 	public void setDomanda(String domanda) {
 		this.domanda = domanda;
+	}
+
+	@Override
+	public Iterator iterator() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

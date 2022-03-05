@@ -24,7 +24,7 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 			ps.setInt(1, Integer.parseInt(id));
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				s=new Sessione(rs.getInt("id"),rs.getString("tipologia"), rs.getString("vittoria"), rs.getString("domanda"));
+				s=new Sessione(rs.getInt("id"),rs.getString("tipologia"), rs.getString("vittoria"), rs.getString("domanda"), true);
 			}
 			/*if(!rs.getString("tipologia"),equalsIgnoreCase("referendum")) {
 				DBConnection.getInstance().openConnection();
