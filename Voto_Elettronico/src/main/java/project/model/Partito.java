@@ -2,15 +2,13 @@ package project.model;
 
 public class Partito extends Concorrente{
 
-	int id;
-	String nome;
-	String cognome;
-	int id_partito;
-	int is_partito;
+	public Partito(int id,String nome,int partito) {
+		super(id,nome, null, partito);
+		
+	}
 	
-	public Partito(int id,String nome, String cognome, int id_partito) {
-		super(id,nome, "", -1);
-		this.is_partito=1;
+	public Partito(String nome) {
+		super(0,nome, null, -1);
 		
 	}
 	

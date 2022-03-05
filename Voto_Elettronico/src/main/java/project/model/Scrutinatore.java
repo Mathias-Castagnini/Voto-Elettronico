@@ -9,24 +9,10 @@ package project.model;
 public class Scrutinatore extends Utente {
 	
 	//ATTRIBUTI
-	String ruolo;
+	private String ruolo;
 	
 	
-	//COSTRUTTORI
-	public Scrutinatore(String nome, String cognome, String cod_fisc, String password, String ruolo) throws Exception {
-		super(nome, cognome, cod_fisc, password);
-		switch(ruolo) {
-		case "scrutinatore":
-			this.ruolo="scrutinatore";
-			break;
-		case "elettore":
-			this.ruolo="elettore";
-			break;
-		default:
-			throw new Exception();
-		}
-	}
-	
+	//COSTRUTTORI	
 	public Scrutinatore(String nome, String cognome, String cod_fisc, String password){
 		super(nome, cognome, cod_fisc, password);
 		ruolo="Scrutinatore";
