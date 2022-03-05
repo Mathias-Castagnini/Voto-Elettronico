@@ -45,7 +45,8 @@ public class LoginPresenzaController extends Controller{
     		AlertFactory.getInstance().getSlimAlert(AlertType.INFORMATION, "la password e il codice fiscale non devono essere di lungezza pari a 0").showAndWait();
     	}else {
     		UtenteDAO dao = (UtenteDAO) DAOFactory.getInstance().getUtenteDAO();
-    		Utente u =dao.get(cf);
+    		Utente u =dao.get(cfScrutinatore);
+    		System.out.println(u);
     		if(Objects.isNull(u)) {
     			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
     		} else if(u.isElettore()){
