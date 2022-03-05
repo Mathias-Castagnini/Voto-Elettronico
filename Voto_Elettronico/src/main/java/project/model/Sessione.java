@@ -11,7 +11,7 @@ public class Sessione implements Iterable{
 	String domanda;
 	Boolean stato;
 	
-	public Sessione(int id,String tipologia, String vittoria, String domanda, Boolean stato) {
+	public Sessione(int id,String tipologia, String vittoria, String domanda) {
 		this.id = id;
 		this.tipologia = tipologia;
 		this.vittoria = vittoria;
@@ -49,6 +49,10 @@ public class Sessione implements Iterable{
 
 	public void setDomanda(String domanda) {
 		this.domanda = domanda;
+	}
+	
+	public Boolean getStato() {
+		return this.stato;
 	}
 
 	@Override

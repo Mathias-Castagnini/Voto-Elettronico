@@ -24,13 +24,8 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 			ps.setInt(1, Integer.parseInt(id));
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				s=new Sessione(rs.getInt("id"),rs.getString("tipologia"), rs.getString("vittoria"), rs.getString("domanda"), true);
-			}
-			/*if(!rs.getString("tipologia"),equalsIgnoreCase("referendum")) {
-				DBConnection.getInstance().openConnection();
-				
-			}*/
-			
+				s=new Sessione(rs.getInt("id"),rs.getString("tipologia"), rs.getString("vittoria"), rs.getString("domanda"));
+			}			
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
@@ -40,20 +35,67 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 
 	@Override
 	public List<Sessione> getAll(){
-		// TODO Auto-generated method stub
-		return null;
+		String query="SELECT * FROM sessione";
+		List<Sessione> l=null;
+		ResultSet rs= null;
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			rs=ps.executeQuery();
+			while(rs.next()) {
+				l.add(new Sessione(rs.getInt("id"),rs.getString("tipologia"),rs.getString("vittoria"),rs.getString("domanda")));
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
+		}
+		return l;
 	}
 
 	@Override
 	public void delete(Sessione t) {
-		// TODO Auto-generated method stub
-		
+		String query="DELETE FROM sessione WHERE id=?";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, t.getId());
+			ps.executeQuery();
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
+		}
 	}
 
 	@Override
 	public void save(Sessione t) {
-		// TODO Auto-generated method stub
-		
+		String query="INSERT INTO sessione(id, tipologia, vittoria, domanda, stato) VALUES(NULL,?,?,?,true)";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setString(1, t.getTipologia());
+			ps.setString(2, t.getVittoria());
+			ps.setString(3, t.getDomanda());
+			ps.setBoolean(4, t.getStato());
+			ps.executeQuery();
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
+		}
 	}
-
+	
+	public void close(int id) {
+		String query="UPDATE sessione SET stato=false WHERE id=?";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, id);
+			ps.executeQuery();
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
+		}
+	}
+	
+	
+	
 }
