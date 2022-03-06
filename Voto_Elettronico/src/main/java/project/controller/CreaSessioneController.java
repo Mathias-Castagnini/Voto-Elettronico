@@ -166,7 +166,7 @@ public class CreaSessioneController extends Controller implements Initializable{
 			});
 			
 			//combobox
-			mvoto.getItems().setAll(List.of("Ordinale","Categorico","Categorico con Preferenze","Referendum"));		
+			mvoto.getItems().setAll(List.of("ordinale","categorico","Categorico preferenza","referendum"));		
 			mvoto.getSelectionModel().selectFirst();
 			mvittoria.getItems().setAll(List.of("Maggioranza","Maggioranza Assoluta"));
 			mvittoria.getSelectionModel().selectFirst();

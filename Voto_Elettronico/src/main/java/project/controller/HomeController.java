@@ -1,5 +1,6 @@
 package project.controller;
 
+import java.util.List;
 import java.util.Objects;
 
 import dao.UtenteDAO;
@@ -11,6 +12,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import logger.VotoLogger;
 import project.model.Elettore;
 import project.model.Scrutinatore;
 import project.model.Utente;
@@ -41,10 +43,12 @@ public class HomeController extends Controller{
     		if(Objects.isNull(u)) {
     			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
     		} else if(u.isElettore()) {
-    				Elettore e= (Elettore) u;
-    				changeView("/view/elettore.fxml",e);
+    				Elettore elettore= (Elettore) u;
+    				VotoLogger.writeToLog("Loggato:"+u.getNome());
+    				changeView("/view/elettore.fxml",elettore);
     		} else{
     				Scrutinatore scrutinatore = (Scrutinatore) u;
+    				VotoLogger.writeToLog("Loggato:"+u.getNome());
     				changeView("/view/scrutinatore.fxml", scrutinatore);
     		}
     	}
@@ -57,7 +61,12 @@ public class HomeController extends Controller{
     
     @Override
     public void init(Object parameters) {
-    	// TODO Auto-generated method stub
+    	if(parameters != null) {
+			@SuppressWarnings("unchecked")
+			List<Object> l = (List<Object>) parameters;
+			codiceFiscale.setText((String)l.get(0));
+			psw.setText((String)l.get(1));
+		}
     	
     }
 }

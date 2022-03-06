@@ -3,6 +3,7 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
@@ -24,7 +25,7 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 			ps.setInt(1, Integer.parseInt(id));
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				s=new Sessione(rs.getInt("id"),rs.getString("tipologia"), rs.getString("vittoria"), rs.getString("domanda"));
+				s=new Sessione(rs.getInt("id"),rs.getString("tipologia"), rs.getString("vittoria"),rs.getBoolean("stato"), rs.getString("domanda"));
 			}			
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -36,14 +37,14 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 	@Override
 	public List<Sessione> getAll(){
 		String query="SELECT * FROM sessione";
-		List<Sessione> l=null;
+		List<Sessione> l=new ArrayList<Sessione>();
 		ResultSet rs= null;
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			rs=ps.executeQuery();
 			while(rs.next()) {
-				l.add(new Sessione(rs.getInt("id"),rs.getString("tipologia"),rs.getString("vittoria"),rs.getString("domanda")));
+				l.add(new Sessione(rs.getInt("id"),rs.getString("tipologia"),rs.getString("vittoria"),rs.getBoolean("stato"),rs.getString("domanda")));
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(Exception e) {
@@ -89,12 +90,14 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ps.setInt(1, id);
-			ps.executeQuery();
+			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
 		}
 	}
+	
+	
 	
 	
 	

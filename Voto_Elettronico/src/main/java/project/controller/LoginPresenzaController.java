@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
+import logger.VotoLogger;
 import project.model.Elettore;
 import project.model.Utente;
 
@@ -56,6 +57,7 @@ public class LoginPresenzaController extends Controller{
     			if (Objects.isNull(el)) {
     				AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
     			} else {
+    				VotoLogger.writeToLog("Loggato:"+u.getNome());
     				changeView("/view/elettore.fxml", null);
     			}
     		}
