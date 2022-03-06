@@ -1,13 +1,28 @@
 package project.controller;
 
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.ResourceBundle;
+
+import dao.ConcorrenteDAO;
+import dao.SessioneDAO;
+import factory.AlertFactory;
+import factory.DAOFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
+import javafx.util.Callback;
+import project.model.Partito;
+import project.model.Sessione;
 
-public class CreaSessioneController extends Controller{
+public class CreaSessioneController extends Controller implements Initializable{
 
 	 @FXML
 	    private Button bck;
@@ -22,16 +37,16 @@ public class CreaSessioneController extends Controller{
 	    private Button ins;
 
 	    @FXML
-	    private ListView<?> listPartiti;
+	    private ListView<Partito> listPartiti;
 
 	    @FXML
-	    private ListView<?> listPartitiInseriti;
+	    private ListView<Partito> listPartitiInseriti;
 
 	    @FXML
-	    private ComboBox<?> mvittoria;
+	    private ComboBox<String> mvittoria;
 
 	    @FXML
-	    private ComboBox<?> mvoto;
+	    private ComboBox<String> mvoto;
 
 	    @FXML
 	    private Button tg;
@@ -43,23 +58,118 @@ public class CreaSessioneController extends Controller{
 
 	    @FXML
 	    void creaSessione(ActionEvent event) {
-
+	    	Sessione s;
+			String d = domanda.getText();
+			String mVoto = mvoto.getSelectionModel().getSelectedItem();
+			String mVittoria= mvittoria.getSelectionModel().getSelectedItem();
+			List<Partito> p = listPartitiInseriti.getItems();
+			if (mVoto.isEmpty() || mVittoria.isEmpty()) {
+				AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Devi scegliere le modalita' di voto e di vittoria").showAndWait();
+			} else {
+				if(mVoto.equalsIgnoreCase("referendum")) {
+					if (!d.isEmpty()) {
+						s=new Sessione( mVoto, mVittoria,d, new ArrayList<Partito>());
+						SessioneDAO dao = (SessioneDAO) DAOFactory.getInstance().getSessioneDAO();
+		        		dao.save(s);
+		        		changeView("/view/scrutinatore.fxml",null);
+					}else {
+						AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Devi inserire la domanda").showAndWait();
+					}
+				} else {
+	    			if(listPartitiInseriti.getItems().size()>=2) {
+	    				s=new Sessione(mVoto, mVittoria, d , p); 
+	            		SessioneDAO dao = (SessioneDAO) DAOFactory.getInstance().getSessioneDAO();
+	            		dao.save(s);
+	            		changeView("/view/scrutinatore.fxml",null);
+	    	    	}else {
+	    	    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Devi selezionare piu' partiti").showAndWait();
+	    	    	}
+				}
+			}
 	    }
 
 	    @FXML
 	    void inserisci(ActionEvent event) {
-
+	    	ConcorrenteDAO dao=(ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
+	    	Partito p= listPartiti.getSelectionModel().getSelectedItem();
+	    	if(p == null) {
+	    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Selezionare il Partito").showAndWait();
+	    	}else {
+	    		listPartitiInseriti.getItems().add(p);
+        		listPartiti.getItems().remove(p);
+	    	}
 	    }
 
 	    @FXML
 	    void togli(ActionEvent event) {
-
+	    	ConcorrenteDAO dao=(ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
+	    	Partito p= listPartitiInseriti.getSelectionModel().getSelectedItem();
+	    	if(p == null) {
+	    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Selezionare il Partito").showAndWait();
+	    	}else {
+	    		listPartitiInseriti.getItems().remove(p);
+        		listPartiti.getItems().add(p);
+	    	}
 	    }
 
 		@Override
 		public void init(Object parameters) {
 			// TODO Auto-generated method stub
 			
+		}
+
+		@Override
+		public void initialize(URL location, ResourceBundle resources) {
+			
+			//listview
+			ConcorrenteDAO dao = (ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
+			listPartiti.getItems().setAll(dao.getPartiti());
+			
+			listPartiti.setCellFactory(new Callback<ListView<Partito>, ListCell<Partito>>() {
+
+			    @Override
+			    public ListCell<Partito> call(ListView<Partito> list) {
+			        ListCell<Partito> cell = new ListCell<Partito>() {
+			            @Override
+			            public void updateItem(Partito item, boolean empty) {
+			                super.updateItem(item, empty);
+			                if(item!= null) {
+			                	setText(item.getNome());
+			                }else {
+			                	setText(null);
+			                }
+			            }
+			        };
+
+			        return cell;
+			    }
+			});
+			
+			listPartitiInseriti.setCellFactory(new Callback<ListView<Partito>, ListCell<Partito>>() {
+
+			    @Override
+			    public ListCell<Partito> call(ListView<Partito> list) {
+			        ListCell<Partito> cell = new ListCell<Partito>() {
+			            @Override
+			            public void updateItem(Partito item, boolean empty) {
+			                super.updateItem(item, empty);
+			                if(item!= null) {
+			                	setText(item.getNome());
+			                }else {
+			                	setText(null);
+			                }
+			            }
+			        };
+
+			        return cell;
+			    }
+			});
+			
+			//combobox
+			mvoto.getItems().setAll(List.of("Ordinale","Categorico","Categorico con Preferenze","Referendum"));		
+			mvoto.getSelectionModel().selectFirst();
+			mvittoria.getItems().setAll(List.of("Maggioranza","Maggioranza Assoluta"));
+			mvittoria.getSelectionModel().selectFirst();
 		}
 
 }

@@ -5,13 +5,14 @@ import java.util.List;
 
 public class Sessione implements Iterable{
 	
-	int id;
-	String tipologia;
-	String vittoria;
-	String domanda;
-	Boolean stato;
+	private int id;
+	private String tipologia;
+	private String vittoria;
+	private String domanda;
+	private boolean stato;
+	private List<Partito> p;
 	
-	public Sessione(int id,String tipologia, String vittoria, String domanda) throws Exception {
+	public Sessione(int id,String tipologia, String vittoria, String domanda) throws Exception{
 		this.id = id;
 		this.tipologia = tipologia;
 		this.vittoria = vittoria;
@@ -20,6 +21,14 @@ public class Sessione implements Iterable{
 		if(!(tipologia.equals("referendum")) && (vittoria.equals("referendum") || vittoria.equals("referendum quorum"))) throw new Exception();
 		this.domanda = domanda;
 		this.stato=true;
+	}
+	
+	public Sessione(String tipologia, String vittoria, String domanda,List<Partito> p){
+		this.tipologia = tipologia;
+		this.vittoria = vittoria;
+		this.domanda = domanda;
+		this.stato=true;
+		this.p=p;
 	}
 	
 	public int getId() {

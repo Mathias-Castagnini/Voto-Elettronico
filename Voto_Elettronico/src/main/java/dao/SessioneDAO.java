@@ -68,7 +68,7 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 
 	@Override
 	public void save(Sessione t) {
-		String query="INSERT INTO sessione(id, tipologia, vittoria, domanda, stato) VALUES(NULL,?,?,?,true)";
+		String query="INSERT INTO sessione(tipologia, vittoria, domanda, stato) VALUES(?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
@@ -76,7 +76,7 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 			ps.setString(2, t.getVittoria());
 			ps.setString(3, t.getDomanda());
 			ps.setBoolean(4, t.getStato());
-			ps.executeQuery();
+			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
