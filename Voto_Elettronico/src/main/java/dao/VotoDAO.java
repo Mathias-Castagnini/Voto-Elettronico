@@ -79,7 +79,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setInt(3, v.getCandidato());
 			ps.setBoolean(4, v.getEsito());
 			ps.setString(5, l.getCod_fiscale());
-			ps.executeQuery();
+			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("error: ", Level.WARNING, e);
@@ -132,7 +132,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setInt(2, sessione);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
-				num=rs.getInt(0);
+				num=rs.getInt(1);
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {

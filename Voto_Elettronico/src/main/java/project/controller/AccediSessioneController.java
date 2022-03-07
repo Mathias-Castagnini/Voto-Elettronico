@@ -40,7 +40,7 @@ public class AccediSessioneController extends Controller implements Initializabl
     	if(s!=null) {
     		String modVoto = s.getTipologia();
     		switch (modVoto) {
-			case "Referendum":
+			case "referendum":
 				changeView("/view/referendum.fxml", List.of(log,s));
 				break;
 			case "ordinale":
@@ -49,7 +49,7 @@ public class AccediSessioneController extends Controller implements Initializabl
 			case "categorico":
 				changeView("/view/votoCategorico.fxml",List.of(log,s));
 				break;
-			case "Categorico-Partiti":
+			case "categorico preferenza":
 				changeView("/view/votoVategoricoPreferenza.fxml",List.of(log,s));
 				break;
 			default:
