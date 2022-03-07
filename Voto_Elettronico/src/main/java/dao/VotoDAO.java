@@ -12,6 +12,7 @@ import dbconnection.DBConnection;
 import logger.VotoLogger;
 import project.model.Candidato;
 import project.model.Concorrente;
+import project.model.Elettore;
 import project.model.Partito;
 import project.model.Scrutinatore;
 import project.model.Sessione;
@@ -64,6 +65,10 @@ public class VotoDAO implements GenericDAO<Voto>{
 
 	@Override
 	public void save(Voto v) {
+		//inutilizzato
+	}
+	
+	public void save(Voto v, Elettore l) {
 		String query="INSERT INTO voto(id,sessione,candidato,esito) VALUES(?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();
@@ -72,6 +77,10 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setInt(2, v.getSessione());
 			ps.setInt(3, v.getCandidato());
 			ps.setBoolean(4, v.getEsito());
+			ps.executeQuery();
+			query="UPDATE utente SET ha_votato=1 WHERE cod_fisc=?";
+			ps=DBConnection.getInstance().prepara(query);
+			ps.setString(1, l.getCod_fiscale());
 			ps.executeQuery();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -176,7 +185,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 		return k;
 	}
 	
-	private Concorrente votoReferendum(Sessione s) throws Exception{
+	public Concorrente votoReferendum(Sessione s) throws Exception{
 		if(!(s.getVittoria().equals("referendum") || s.getVittoria().equals("referendum quorum"))) throw new Exception();
 		String query="";
 		List<Voto> l=null;
@@ -226,7 +235,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 	}
 
 	//il partito che vince poi ritorna il candidato con più voti, dal candidato si recupera il partito vincente collegato
-	private Concorrente votoPreferenza(Sessione s) {
+	public Concorrente votoPreferenza(Sessione s) {
 		Concorrente p = votoCategorico(s);
 		if(p instanceof Candidato) return p;
 		String query="SELECT * FROM candidato WHERE id_partito=?";
@@ -258,7 +267,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 		return key;
 	}
 
-	private Partito toPartito(int id) {
+	public Partito toPartito(int id) {
 		String query="SELECT * FROM candidato WHERE id=?";
 		Partito p=null;
 		try {
@@ -276,12 +285,36 @@ public class VotoDAO implements GenericDAO<Voto>{
 		return p;
 	}
 
-	private Concorrente votoOrdinale(Sessione s) {
-		
-		return null;
+	public Concorrente votoOrdinale(Sessione s) {
+		ConcorrenteDAO c=null;
+		List<Concorrente> l = c.getCandidatiSessione(s);
+		HashMap<Concorrente, Integer> map=new HashMap<Concorrente,Integer>();
+		for(int i=0;i<l.size();i++) {
+			map.put(l.get(i),countVotoCandidato(s.getId(),l.get(i).getId()));
+		}
+		l=null;
+		while(map.size()!=0) {
+			Concorrente d = getMax(map);
+			l.add(d);
+			map.remove(d);
+		}
+		for(int i=0;i<l.size();i++) {
+			if(l.get(i)instanceof Partito) return l.get(i);
+		}
+
+		return l.get(0);
+	}
+	
+	private Concorrente getMax(HashMap<Concorrente, Integer> m) {
+		int max=0;
+		Concorrente c=null;
+		for(Concorrente i:m.keySet()) {
+			if(m.get(i)>max) max=m.get(i); c=i;
+		}
+		return c;
 	}
 
-	private Concorrente votoCategorico(Sessione s) {
+	public Concorrente votoCategorico(Sessione s) {
 		HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
 		String query="SELECT * FROM voto where sessione=?";
 		try {

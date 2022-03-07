@@ -36,7 +36,7 @@ public class UtenteDAO implements GenericDAO<Utente>{
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				if(rs.getString("ruolo").equalsIgnoreCase("Elettore")) {
-					u=new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"));
+					u=new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"),rs.getBoolean("ha_votato"));
 				}else {
 					u=new Scrutinatore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"));
 				}
@@ -56,7 +56,7 @@ public class UtenteDAO implements GenericDAO<Utente>{
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
 				if(rs.getString("ruolo").equalsIgnoreCase("elettore")) {
-					l.add(new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password")));
+					l.add(new Elettore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password"),rs.getBoolean("ha_votato")));
 				}else {
 					l.add(new Scrutinatore(rs.getString("nome"),rs.getString("cognome"),rs.getString("cod_fisc"),rs.getString("password")));
 				}
