@@ -5,12 +5,10 @@ package project.model;
  */
 
 public class Elettore extends Utente{
-	Boolean ha_votato;
 	
 	//COSTRUTTORE
-	public Elettore(String nome, String cognome, String cod_fisc, String password, Boolean ha_votato){
+	public Elettore(String nome, String cognome, String cod_fisc, String password){
 		super(nome, cognome, cod_fisc, password);
-		this.ha_votato=ha_votato;
 	}
 
 	//METODI
@@ -31,7 +29,4 @@ public class Elettore extends Utente{
 		return "elettore";
 	}
 	
-	public Boolean getVotato() {
-		return this.ha_votato;
-	}
 }
