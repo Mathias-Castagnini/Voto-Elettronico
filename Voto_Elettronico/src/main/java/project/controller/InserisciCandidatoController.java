@@ -18,6 +18,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.Callback;
+import logger.VotoLogger;
 import project.model.Candidato;
 import project.model.Concorrente;
 import project.model.Elettore;
@@ -27,6 +28,7 @@ import project.model.Utente;
 
 public class InserisciCandidatoController extends Controller implements Initializable{
 
+	Scrutinatore log;
 	@FXML
     private Button bck;
 
@@ -44,7 +46,7 @@ public class InserisciCandidatoController extends Controller implements Initiali
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/inserisciPartito.fxml",null);
+    	changeView("/view/inserisciPartito.fxml",log);
     }
 
     @FXML
@@ -59,6 +61,7 @@ public class InserisciCandidatoController extends Controller implements Initiali
         	if(p!= null) {
         		Candidato c= new Candidato(nome,cognome,p.getId());
             	dao.addCandidato(c);
+            	VotoLogger.writeToLog("candidato inserito correttamente");
         	}else {
         		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Selezionare il Partito").showAndWait();
         	}
@@ -72,8 +75,7 @@ public class InserisciCandidatoController extends Controller implements Initiali
 
 	@Override
 	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
+		log=(Scrutinatore) parameters;
 	}
 
 	@Override

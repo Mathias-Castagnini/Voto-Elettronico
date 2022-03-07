@@ -18,9 +18,11 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import logger.VotoLogger;
 import project.model.Candidato;
 import project.model.Concorrente;
 import project.model.Partito;
+import project.model.Scrutinatore;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -29,6 +31,7 @@ import javafx.scene.input.MouseEvent;
 
 public class EliminaCandidatiContoller extends Controller implements Initializable{
 
+	Scrutinatore log;
     @FXML
     private Button bck;
 
@@ -46,7 +49,7 @@ public class EliminaCandidatiContoller extends Controller implements Initializab
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/gestioneCandidati.fxml",null);
+    	changeView("/view/gestioneCandidati.fxml",log);
     }
 
     @FXML
@@ -55,6 +58,7 @@ public class EliminaCandidatiContoller extends Controller implements Initializab
     	Candidato p =listCandidati.getSelectionModel().getSelectedItem();
     	dao.delete(p);
     	listCandidati.getItems().remove(p);
+    	VotoLogger.writeToLog("Il candidato e' stato eliminato correttamente");
     }
 
     @FXML
@@ -63,6 +67,7 @@ public class EliminaCandidatiContoller extends Controller implements Initializab
     	Partito p =listPartiti.getSelectionModel().getSelectedItem();
     	dao.delete(p);
     	listPartiti.getItems().remove(p);
+    	VotoLogger.writeToLog("Il partito "+p.getNome()+" e' stato eliminato correttamente compresi tutti i suoi candidati");
     }
 
     @FXML
@@ -103,8 +108,7 @@ public class EliminaCandidatiContoller extends Controller implements Initializab
 
 	@Override
 	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
+		log=(Scrutinatore) parameters;
 	}
 
 	@Override

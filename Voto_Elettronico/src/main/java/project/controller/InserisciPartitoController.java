@@ -11,6 +11,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
+import logger.VotoLogger;
 import project.model.Concorrente;
 import project.model.Elettore;
 import project.model.Partito;
@@ -19,6 +20,7 @@ import project.model.Utente;
 
 public class InserisciPartitoController extends Controller{
 
+	Scrutinatore log;
     @FXML
     private Button bck;
 
@@ -33,7 +35,7 @@ public class InserisciPartitoController extends Controller{
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/gestioneCandidati.fxml",null);
+    	changeView("/view/gestioneCandidati.fxml",log);
     }
 
     @FXML
@@ -45,12 +47,13 @@ public class InserisciPartitoController extends Controller{
     		Concorrente p = new Partito(nome);
     		ConcorrenteDAO dao = (ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
     		dao.addPartito((Partito)p);
+    		VotoLogger.writeToLog("partito inserito correttamente");
     	}
     }
 
     @FXML
     void redirectCandidati(ActionEvent event) {
-    	changeView("/view/inserisciCandidato.fxml",null);
+    	changeView("/view/inserisciCandidato.fxml",log);
     }
 
     @FXML
@@ -60,8 +63,7 @@ public class InserisciPartitoController extends Controller{
 
 	@Override
 	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
+		log=(Scrutinatore) parameters;
 	}
 
 }

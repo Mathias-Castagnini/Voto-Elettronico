@@ -19,12 +19,15 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.util.Callback;
+import logger.VotoLogger;
 import project.model.Partito;
+import project.model.Scrutinatore;
 import project.model.Sessione;
 
 public class CreaSessioneController extends Controller implements Initializable{
 
-	 @FXML
+	Scrutinatore log;
+	 	@FXML
 	    private Button bck;
 
 	    @FXML
@@ -53,7 +56,7 @@ public class CreaSessioneController extends Controller implements Initializable{
 
 	    @FXML
 	    void back(ActionEvent event) {
-	    	changeView("/view/gestioneSessione.fxml",null);
+	    	changeView("/view/gestioneSessione.fxml",log);
 	    }
 
 	    @FXML
@@ -71,7 +74,8 @@ public class CreaSessioneController extends Controller implements Initializable{
 						s=new Sessione( mVoto, mVittoria,d, new ArrayList<Partito>());
 						SessioneDAO dao = (SessioneDAO) DAOFactory.getInstance().getSessioneDAO();
 		        		dao.save(s);
-		        		changeView("/view/scrutinatore.fxml",null);
+		        		VotoLogger.writeToLog("Sessione creata correttamente");
+		        		changeView("/view/scrutinatore.fxml",log);
 					}else {
 						AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Devi inserire la domanda").showAndWait();
 					}
@@ -80,7 +84,8 @@ public class CreaSessioneController extends Controller implements Initializable{
 	    				s=new Sessione(mVoto, mVittoria, d , p); 
 	            		SessioneDAO dao = (SessioneDAO) DAOFactory.getInstance().getSessioneDAO();
 	            		dao.save(s);
-	            		changeView("/view/scrutinatore.fxml",null);
+	            		VotoLogger.writeToLog("Sessione creata correttamente");
+	            		changeView("/view/scrutinatore.fxml",log);
 	    	    	}else {
 	    	    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Devi selezionare piu' partiti").showAndWait();
 	    	    	}
@@ -114,8 +119,7 @@ public class CreaSessioneController extends Controller implements Initializable{
 
 		@Override
 		public void init(Object parameters) {
-			// TODO Auto-generated method stub
-			
+			log=(Scrutinatore) parameters;
 		}
 
 		@Override

@@ -65,8 +65,7 @@ public class InserisciUtenteController extends Controller{
     		}
     		UtenteDAO dao = (UtenteDAO) DAOFactory.getInstance().getUtenteDAO();
         	dao.save(utente, password);
-        	VotoLogger.writeToLog("Utente inserito");
-        	changeView("/view/scrutinatore.fxml",l);
+        	VotoLogger.writeToLog("Utente inserito correttamente");
     	}
     }
 

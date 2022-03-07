@@ -19,12 +19,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import logger.VotoLogger;
 import project.model.Elettore;
 import project.model.Scrutinatore;
 import project.model.Utente;
 
 public class ModificaUtenteController extends Controller implements Initializable{
 
+	Scrutinatore l;
     @FXML
     private Button bck;
 
@@ -51,7 +53,7 @@ public class ModificaUtenteController extends Controller implements Initializabl
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/gestioneUtente.fxml",null);
+    	changeView("/view/gestioneUtente.fxml",l);
     }
 
     @FXML
@@ -67,8 +69,11 @@ public class ModificaUtenteController extends Controller implements Initializabl
         	Utente u = listUtenti.getSelectionModel().getSelectedItem();
     		if(elettore) {
     			dao.update(u, nome, cognome, u.getCod_fiscale(), password, "elettore");
+    			VotoLogger.writeToLog("Utente "+u.getCod_fiscale()+" modificato correttamente");
+    			changeView("/view/scrutinatore.fxml",l);
     		}else {
     			dao.update(u, nome, cognome, u.getCod_fiscale(), password, "scrutinatore");
+    			VotoLogger.writeToLog("Utente "+u.getCod_fiscale()+" modificato correttamente");
     		}      	
     	}
     }
@@ -79,6 +84,7 @@ public class ModificaUtenteController extends Controller implements Initializabl
 
 	@Override
 	public void init(Object parameters) {
+		l = (Scrutinatore) parameters;	
 	}
 
 	@Override

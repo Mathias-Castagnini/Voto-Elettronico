@@ -61,12 +61,6 @@ public class HomeController extends Controller{
     
     @Override
     public void init(Object parameters) {
-    	if(parameters != null) {
-			@SuppressWarnings("unchecked")
-			List<Object> l = (List<Object>) parameters;
-			codiceFiscale.setText((String)l.get(0));
-			psw.setText((String)l.get(1));
-		}
     	
     }
 }

@@ -16,10 +16,13 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import logger.VotoLogger;
+import project.model.Scrutinatore;
 import project.model.Sessione;
 
 public class TerminaSessioneController extends Controller implements Initializable{
 
+	Scrutinatore log;
 	@FXML
     private Button bck;
 
@@ -37,7 +40,7 @@ public class TerminaSessioneController extends Controller implements Initializab
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/gestioneSessione.fxml",null);
+    	changeView("/view/gestioneSessione.fxml",log);
     }
 
     @FXML
@@ -56,7 +59,8 @@ public class TerminaSessioneController extends Controller implements Initializab
     	if(s!= null) {
     		SessioneDAO dao = (SessioneDAO) DAOFactory.getInstance().getSessioneDAO();
     		dao.close(s.getId());
-    		changeView("/view/scrutinatore.fxml", null);
+    		VotoLogger.writeToLog("Sessione "+s.getId()+" terminata correttamente");
+    		changeView("/view/scrutinatore.fxml", log);
     		
     	}else {
     		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Seleziona una sessione da terminare").showAndWait();
@@ -70,8 +74,7 @@ public class TerminaSessioneController extends Controller implements Initializab
 
 	@Override
 	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
+		log=(Scrutinatore) parameters;
 	}
 
 	@Override
