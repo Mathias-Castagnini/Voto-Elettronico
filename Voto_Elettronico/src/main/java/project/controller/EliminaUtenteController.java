@@ -15,10 +15,14 @@ import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.util.Callback;
+import logger.VotoLogger;
+import project.model.Scrutinatore;
 import project.model.Utente;
 
 public class EliminaUtenteController extends Controller implements Initializable{
 
+	Scrutinatore l;
+	
     @FXML
     private Button bck;
 
@@ -30,7 +34,7 @@ public class EliminaUtenteController extends Controller implements Initializable
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/gestioneUtente.fxml",null);
+    	changeView("/view/gestioneUtente.fxml",l);
     }
 
     @FXML
@@ -39,7 +43,10 @@ public class EliminaUtenteController extends Controller implements Initializable
     	Utente u = listUtenti.getSelectionModel().getSelectedItem();
     	if(!Objects.isNull(u)) {
     		dao.delete(u);
-    		listUtenti.getItems().remove(u);
+    		boolean elimina = listUtenti.getItems().remove(u);
+    		if(elimina) {
+    			VotoLogger.writeToLog("L'utente "+u.getCod_fiscale()+" e' stato eliminato da "+l.getCod_fiscale() );
+    		}
     	}
     }
 
@@ -49,8 +56,7 @@ public class EliminaUtenteController extends Controller implements Initializable
 
 	@Override
 	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
+		l = (Scrutinatore) parameters;
 	}
 
 	@Override

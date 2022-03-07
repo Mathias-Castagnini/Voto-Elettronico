@@ -3,9 +3,11 @@ package project.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import project.model.Scrutinatore;
 
 public class GestioneUtenteController extends Controller{
 
+	Scrutinatore l;
     @FXML
     private Button bck;
 
@@ -20,28 +22,27 @@ public class GestioneUtenteController extends Controller{
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/scrutinatore.fxml",null);
+    	changeView("/view/scrutinatore.fxml",l);
     }
 
     @FXML
     void elimina(ActionEvent event) {
-    	changeView("/view/eliminaUtente.fxml",null);
+    	changeView("/view/eliminaUtente.fxml",l);
     }
 
     @FXML
     void inserisci(ActionEvent event) {
-    	changeView("/view/inserisciUtente.fxml",null);
+    	changeView("/view/inserisciUtente.fxml",l);
     }
 
     @FXML
     void modifica(ActionEvent event) {
-    	changeView("/view/modificaUtente.fxml",null);
+    	changeView("/view/modificaUtente.fxml",l);
     }
 
 	@Override
 	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
+		l = (Scrutinatore) parameters;
 	}
 
 }

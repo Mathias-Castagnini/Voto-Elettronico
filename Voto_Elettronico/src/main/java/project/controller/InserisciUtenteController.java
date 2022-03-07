@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.TextField;
+import logger.VotoLogger;
 import project.model.Elettore;
 import project.model.Scrutinatore;
 import project.model.Utente;
@@ -18,6 +19,8 @@ import javafx.scene.control.Alert.AlertType;
 
 public class InserisciUtenteController extends Controller{
 
+	Scrutinatore l;
+	
     @FXML
     private Button bck;
 
@@ -41,7 +44,7 @@ public class InserisciUtenteController extends Controller{
 
     @FXML
     void back(ActionEvent event) {
-    	changeView("/view/gestioneUtente.fxml",null);
+    	changeView("/view/gestioneUtente.fxml",l);
     }
 
     @FXML
@@ -62,13 +65,14 @@ public class InserisciUtenteController extends Controller{
     		}
     		UtenteDAO dao = (UtenteDAO) DAOFactory.getInstance().getUtenteDAO();
         	dao.save(utente, password);
+        	VotoLogger.writeToLog("Utente inserito");
+        	changeView("/view/scrutinatore.fxml",l);
     	}
     }
 
 	@Override
 	public void init(Object parameters) {
-		// TODO Auto-generated method stub
-		
+		l = (Scrutinatore) parameters;
 	}
 
 }
