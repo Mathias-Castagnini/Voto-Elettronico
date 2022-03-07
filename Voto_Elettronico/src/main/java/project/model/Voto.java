@@ -39,5 +39,8 @@ public class Voto {
 		return this.esito;
 	}
 	 
+	public String getElettore() {
+		return this.id_elettore;
+	}
 	 
 }
