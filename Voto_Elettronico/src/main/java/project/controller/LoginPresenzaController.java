@@ -1,5 +1,7 @@
 package project.controller;
 
+import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.util.Objects;
 
 import dao.UtenteDAO;
@@ -48,7 +50,13 @@ public class LoginPresenzaController extends Controller{
     		UtenteDAO dao = (UtenteDAO) DAOFactory.getInstance().getUtenteDAO();
     		Utente u =dao.get(cfScrutinatore);
     		System.out.println(u);
-    		if(Objects.isNull(u)) {
+    		MessageDigest digest;
+    		String sha1="";
+    		digest = MessageDigest.getInstance("SHA-1");
+			digest.reset();
+			digest.update(ps.getBytes("utf8"));
+			sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
+    		if(Objects.isNull(u) || !(u.getPassword().equals(sha1))) {
     			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
     		} else if(u.isElettore()){
     			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Devi essere uno scrutinatore per eseguire questa azione.").showAndWait();

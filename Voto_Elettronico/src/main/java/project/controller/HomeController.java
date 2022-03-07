@@ -48,7 +48,7 @@ public class HomeController extends Controller{
 			digest.reset();
 			digest.update(ps.getBytes("utf8"));
 			sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
-    		if(Objects.isNull(u) || u.getPassword().equals(sha1)) {
+    		if(Objects.isNull(u) || !(u.getPassword().equals(sha1))) {
     			AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
     		} else if(u.isElettore()) {
     				Elettore elettore= (Elettore) u;

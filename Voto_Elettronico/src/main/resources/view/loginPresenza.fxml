@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="406.0" prefWidth="635.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="project.controller.LoginPresenzaController">
    <children>
-      <PasswordField fx:id="psw" layoutX="210.0" layoutY="178.0" prefHeight="25.0" prefWidth="216.0" promptText="Password" />
+      <PasswordField fx:id="psw" layoutX="210.0" layoutY="178.0" prefHeight="25.0" prefWidth="216.0" promptText="Password Scrutinatore" />
       <Text layoutX="175.0" layoutY="73.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Autenticazione in presenza" wrappingWidth="285.71484375">
          <font>
             <Font size="24.0" />
