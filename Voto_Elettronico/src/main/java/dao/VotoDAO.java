@@ -232,7 +232,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 		}
 	}
 
-	//il partito che vince poi ritorna il candidato con più voti, dal candidato si recupera il partito vincente collegato
+	//il partito che vince poi ritorna il candidato con piu voti, dal candidato si recupera il partito vincente collegato
 	public Concorrente votoPreferenza(Sessione s) {
 		Concorrente p = votoCategorico(s);
 		if(p instanceof Candidato) return p;
