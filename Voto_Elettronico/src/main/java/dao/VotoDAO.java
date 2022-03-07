@@ -68,8 +68,8 @@ public class VotoDAO implements GenericDAO<Voto>{
 		//inutilizzato
 	}
 	
-	public void save(Voto v, Elettore l) throws Exception{
-		if(checkVoto(l.getCod_fiscale(),v.getSessione())) throw new Exception();
+	public void save(Voto v, Elettore l){
+		if(checkVoto(l.getCod_fiscale(),v.getSessione())) throw new IllegalArgumentException();
 		String query="INSERT INTO voto(id,sessione,candidato,esito,elettore) VALUES(?,?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();

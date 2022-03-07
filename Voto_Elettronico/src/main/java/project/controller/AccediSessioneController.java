@@ -6,10 +6,12 @@ import java.util.ResourceBundle;
 
 import dao.ConcorrenteDAO;
 import dao.SessioneDAO;
+import factory.AlertFactory;
 import factory.DAOFactory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -33,7 +35,29 @@ public class AccediSessioneController extends Controller implements Initializabl
 
     @FXML
     void vota(ActionEvent event) {
-    	
+    	Sessione s = null;
+    	s = listSessioni.getSelectionModel().getSelectedItem();
+    	if(s!=null) {
+    		String modVoto = s.getTipologia();
+    		switch (modVoto) {
+			case "Referendum":
+				changeView("/view/referendum.fxml", List.of(log,s));
+				break;
+			case "ordinale":
+				changeView("/view/votoOrdinale.fxml",List.of(log,s));
+				break;
+			case "categorico":
+				changeView("/view/votoCategorico.fxml",List.of(log,s));
+				break;
+			case "Categorico-Partiti":
+				changeView("/view/votoVategoricoPreferenza.fxml",List.of(log,s));
+				break;
+			default:
+				break;
+			}   		
+    	}else {
+    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Selezionare una sessione").showAndWait();
+    	}
     }
 
 	@Override

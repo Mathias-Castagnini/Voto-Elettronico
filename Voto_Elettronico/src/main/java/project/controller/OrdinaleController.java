@@ -5,14 +5,18 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import project.model.Candidato;
+import project.model.Elettore;
+import project.model.Partito;
 
 public class OrdinaleController extends Controller{
 
+	Elettore log;
     @FXML
-    private ListView<?> listCandidati;
+    private ListView<Candidato> listCandidati;
 
     @FXML
-    private ListView<?> listPartiti;
+    private ListView<Partito> listPartiti;
 
     @FXML
     private Button v;
