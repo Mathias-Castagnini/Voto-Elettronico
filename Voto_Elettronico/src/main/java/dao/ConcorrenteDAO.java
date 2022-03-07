@@ -13,6 +13,7 @@ import logger.VotoLogger;
 import project.model.Candidato;
 import project.model.Concorrente;
 import project.model.Partito;
+import project.model.Sessione;
 
 public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 
@@ -223,5 +224,58 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			VotoLogger.writeToLog("Error : ", Level.WARNING, e);
 		}
 	}
+	
+	public List<Concorrente> getAll(Sessione s) {
+		List<Concorrente> l=null;
+		String query="SELECT candidato FROM partecipazione WHERE sessione=?";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, s.getId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				l.add(get(""+rs.getInt("id")));
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("error: ", Level.WARNING, e);
+		}
+		return l;
+	}
 
+	public List<Concorrente> getCandidatiSessione(Sessione s){
+		List<Concorrente> l =null;
+		String query="SELECT id FROM candidato JOIN partecipazione WHERE sessione=? AND is_partito=0";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, s.getId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				l.add(get(""+rs.getInt("id")));
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("error: ", Level.WARNING, e);
+		}
+		return l;
+	}
+	
+	public List<Concorrente> getPartitiSessione(Sessione s){
+		List<Concorrente> l =null;
+		String query="SELECT id FROM candidato JOIN partecipazione WHERE sessione=? AND is_partito=1";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, s.getId());
+			ResultSet rs = ps.executeQuery();
+			while (rs.next()) {
+				l.add(get(""+rs.getInt("id")));
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("error: ", Level.WARNING, e);
+		}
+		return l;
+	}
 }

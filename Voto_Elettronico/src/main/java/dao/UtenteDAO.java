@@ -159,5 +159,20 @@ public class UtenteDAO implements GenericDAO<Utente>{
 		}		
 	}
 
+	public int numeroElettoriTot(List<Utente> l) {
+		int num=0;
+		for(int i=0;i<l.size();i++) {
+			if(l.get(i) instanceof Elettore) num++;
+		}
+		return num;
+	}
+	
+	public int numeroScrutinatoriTot(List<Utente> l) {
+		int num=0;
+		for(int i=0;i<l.size();i++) {
+			if(l.get(i) instanceof Scrutinatore) num++;
+		}
+		return num;
+	}
 	
 }

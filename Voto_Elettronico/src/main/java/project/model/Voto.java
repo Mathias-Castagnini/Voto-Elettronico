@@ -5,11 +5,20 @@ public class Voto {
 	 int id;
 	 int sessione;
 	 int candidato;
+	 Boolean esito;
 	 
 	 public Voto(int id, int s, int c) {
 		 this.id=id;
 		 this.sessione=s;
 		 this.candidato=c;
+		 this.esito=null;
+	 }
+	 
+	 public Voto(int id, int s, int c, Boolean e) {
+		 this.id=id;
+		 this.sessione=s;
+		 this.candidato=c;
+		 this.esito=e;
 	 }
 
 	public int getId() {
@@ -24,6 +33,9 @@ public class Voto {
 		return candidato;
 	}
 
+	public Boolean getEsito() {
+		return this.esito;
+	}
 	 
 	 
 }

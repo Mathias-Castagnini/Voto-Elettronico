@@ -5,6 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 
 import dbconnection.DBConnection;
@@ -29,7 +30,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setInt(1, Integer.parseInt(id));
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				v=new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"));
+				v=new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito"));
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -47,7 +48,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato")));
+				l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito")));
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -63,13 +64,14 @@ public class VotoDAO implements GenericDAO<Voto>{
 
 	@Override
 	public void save(Voto v) {
-		String query="INSERT INTO voto(id,sessione,candidato) VALUES(?,?,?)";
+		String query="INSERT INTO voto(id,sessione,candidato,esito) VALUES(?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ps.setInt(1, v.getId());
 			ps.setInt(2, v.getSessione());
 			ps.setInt(3, v.getCandidato());
+			ps.setBoolean(4, v.getEsito());
 			ps.executeQuery();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -138,7 +140,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 	//
 	
 	
-	public Concorrente contaVoti(Utente c, int idSessione) throws Exception {
+	public Concorrente esitoSessione(Utente c, int idSessione) throws Exception {
 		if(!(c instanceof Scrutinatore)) throw new Exception();
 		Sessione s = null;
 		Concorrente k = null;
@@ -159,38 +161,104 @@ public class VotoDAO implements GenericDAO<Voto>{
 			case "ordinale":
 				k=votoOrdinale(s);
 				break;
-			case "categorico":
+			case "categorico": //ok
 				k=votoCategorico(s);
 				break;
-			case "categorico preferenza":
+			case "categorico preferenza": //ok
 				k=votoPreferenza(s);
 				break;
-			case "referendum":
+			case "referendum": //ok
 				k=votoReferendum(s);
 				break;
 			default:
 				throw new Exception();
-		}
-		
-		
+		}		
 		return k;
 	}
 	
-	private Concorrente votoReferendum(Sessione s) {
-		
-		return null;
+	private Concorrente votoReferendum(Sessione s) throws Exception{
+		if(!(s.getVittoria().equals("referendum") || s.getVittoria().equals("referendum quorum"))) throw new Exception();
+		String query="";
+		List<Voto> l=null;
+		if(s.getVittoria().equals("referendum")) {
+			query="SELECT * FROM voto WHERE esito!=NULL AND sessione=?";
+			try {
+				DBConnection.getInstance().openConnection();
+				PreparedStatement ps = DBConnection.getInstance().prepara(query);
+				ps.setInt(1, s.getId());
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito")));
+				}
+				DBConnection.getInstance().closeConnection();
+			}catch(SQLException e) {
+				VotoLogger.writeToLog("Error:", Level.WARNING, e);
+			}
+			int numVoti=l.size();
+			int yes=0;
+			for(int i=0;i<l.size();i++) {
+				if(l.get(i).getEsito()==true) yes++;
+			}
+			if(yes>numVoti/2) return new Partito("yes");
+			else return new Partito("no");
+		}else {
+			query="SELECT * FROM voto WHERE esito!=NULL AND sessione=?";
+			try {
+				DBConnection.getInstance().openConnection();
+				PreparedStatement ps = DBConnection.getInstance().prepara(query);
+				ps.setInt(1, s.getId());
+				ResultSet rs=ps.executeQuery();
+				while(rs.next()) {
+					l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito")));
+				}
+				DBConnection.getInstance().closeConnection();
+			}catch(SQLException e) {
+				VotoLogger.writeToLog("Error:", Level.WARNING, e);
+			}
+			int yes=0;
+			for(int i=0;i<l.size();i++) {
+				if(l.get(i).getEsito()==true) yes++;
+			}
+			UtenteDAO u = new UtenteDAO();
+			if(yes>u.numeroElettoriTot(u.getAll())) return new Partito("yes");
+			else return new Partito("no");
+		}
 	}
 
 	//il partito che vince poi ritorna il candidato con più voti, dal candidato si recupera il partito vincente collegato
 	private Concorrente votoPreferenza(Sessione s) {
 		Concorrente p = votoCategorico(s);
 		if(p instanceof Candidato) return p;
-		String query="";
-		
-		return null;
+		String query="SELECT * FROM candidato WHERE id_partito=?";
+		List<Candidato> l=null;
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, p.getId());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()) {
+				l.add(new Candidato(rs.getInt("id"),rs.getString("nome"),rs.getString("cognome"),rs.getInt("id_partito")));
+			}
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("Error:", Level.WARNING, e);
+		}
+		HashMap<Candidato, Integer> map=new HashMap<Candidato, Integer>();
+		for(int i=0;i<l.size();i++) {
+			map.put(l.get(i), countVotoCandidato(s.getId(), l.get(i).getId()));
+		}
+		int max=0;
+		Candidato key=null;
+		for(Candidato i:map.keySet()) {
+			if(map.get(i)>max) {
+				max=map.get(i); 
+				key=i;
+			}
+		}
+		return key;
 	}
 
-	/*private Partito toPartito(int id) {
+	private Partito toPartito(int id) {
 		String query="SELECT * FROM candidato WHERE id=?";
 		Partito p=null;
 		try {
@@ -206,7 +274,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			VotoLogger.writeToLog("Error:", Level.WARNING, e);
 		}
 		return p;
-	}*/
+	}
 
 	private Concorrente votoOrdinale(Sessione s) {
 		//
