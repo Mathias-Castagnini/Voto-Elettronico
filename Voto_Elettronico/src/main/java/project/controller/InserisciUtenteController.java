@@ -59,7 +59,7 @@ public class InserisciUtenteController extends Controller{
     	} else {
     		Utente utente;
     		if(elettore) {
-    			utente = new Elettore(nome, cognome, codice, password);
+    			utente = new Elettore(nome, cognome, codice, password,false);
     		}else {
     			utente = new Scrutinatore(nome, cognome, codice, password);
     		}
