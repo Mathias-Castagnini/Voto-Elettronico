@@ -5,7 +5,7 @@ package project.model;
  */
 
 public class Elettore extends Utente{
-	Boolean ha_votato;
+	private Boolean ha_votato;
 	
 	//COSTRUTTORE
 	public Elettore(String nome, String cognome, String cod_fisc, String password, Boolean ha_votato){
