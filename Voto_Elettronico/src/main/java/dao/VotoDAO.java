@@ -31,7 +31,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setInt(1, Integer.parseInt(id));
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				v=new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito"),rs.getString("elettore"));
+				v=new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito"));
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -49,7 +49,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()) {
-				l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito"),rs.getString("elettore")));
+				l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito")));
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -70,7 +70,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 	
 	public void save(Voto v, Elettore l){
 		if(checkVoto(l.getCod_fiscale(),v.getSessione())) throw new IllegalArgumentException();
-		String query="INSERT INTO voto(id,sessione,candidato,esito,elettore) VALUES(?,?,?,?,?)";
+		String query="INSERT INTO voto(id,sessione,candidato,esito,elettore) VALUES(?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
@@ -78,8 +78,12 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setInt(2, v.getSessione());
 			ps.setInt(3, v.getCandidato());
 			ps.setBoolean(4, v.getEsito());
-			ps.setString(5, l.getCod_fiscale());
-			ps.executeQuery();
+			ps.executeUpdate();
+			query="INSERT INTO votazione(sessione,elettore) VALUES(?,?)";
+			ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, v.getSessione());
+			ps.setString(2, l.getCod_fiscale());
+			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("error: ", Level.WARNING, e);
@@ -123,13 +127,13 @@ public class VotoDAO implements GenericDAO<Voto>{
 	
 	//ritorna false se non ha votato, true se ha votato
 	public Boolean checkVoto(String id, int sessione) {
-		String query="SELECT COUNT(*) FROM voto WHERE elettore=? AND sessione=?";
+		String query="SELECT COUNT(*) FROM votazione WHERE sessione=? AND elettore=?";
 		int num=1;
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
-			ps.setString(1, id);
-			ps.setInt(2, sessione);
+			ps.setInt(1, sessione);
+			ps.setString(2, id);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
 				num=rs.getInt(0);
@@ -195,7 +199,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 				ps.setInt(1, s.getId());
 				ResultSet rs=ps.executeQuery();
 				while(rs.next()) {
-					l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito"),rs.getString("elettore")));
+					l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito")));
 				}
 				DBConnection.getInstance().closeConnection();
 			}catch(SQLException e) {
@@ -216,7 +220,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 				ps.setInt(1, s.getId());
 				ResultSet rs=ps.executeQuery();
 				while(rs.next()) {
-					l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito"),rs.getString("elettore")));
+					l.add(new Voto(rs.getInt("id"),rs.getInt("sessione"),rs.getInt("candidato"),rs.getBoolean("esito")));
 				}
 				DBConnection.getInstance().closeConnection();
 			}catch(SQLException e) {

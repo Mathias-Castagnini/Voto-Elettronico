@@ -32,14 +32,14 @@ public class ReferendumController extends Controller{
     @FXML
     void favorevole(ActionEvent event) {
     	VotoDAO dao = (VotoDAO) DAOFactory.getInstance().getVotoDAO();
-    	Voto v=new Voto(0,s.getId(),0,true,log.getCod_fiscale());
+    	Voto v=new Voto(0,s.getId(),0,true);
 		dao.save(v, log);;
     }
 
     @FXML
     void nonFavorevole(ActionEvent event) {
     	VotoDAO dao = (VotoDAO) DAOFactory.getInstance().getVotoDAO();
-    	Voto v=new Voto(0,s.getId(),0,false,log.getCod_fiscale());
+    	Voto v=new Voto(0,s.getId(),0,false);
 		dao.save(v, log);;
     }
 

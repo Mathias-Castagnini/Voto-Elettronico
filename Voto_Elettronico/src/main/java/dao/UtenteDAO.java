@@ -69,23 +69,28 @@ public class UtenteDAO implements GenericDAO<Utente>{
 		return l;
 	}
 
-	public void update(Utente t, String n, String c, String cf, String p, String r) {
+	public void update(Utente t, String n, String c, String cf, String p, String r) throws NoSuchAlgorithmException, UnsupportedEncodingException {
 		String query = "UPDATE utente SET nome = ?, cognome = ?, cod_fisc=?, password=?, ruolo=? WHERE cod_fisc = ?;";
-		String cod=cf;
-		if(n==null) n=t.getNome();
-		if(c==null) c=t.getCognome();
-		if(cf==null) cf=t.getNome();
-		if(p==null) p=t.getNome();
-		if(r==null) r=t.getNome();
+		MessageDigest digest;
+		String sha1 = null;
 		try {
+			if(n==null) n=t.getNome();
+			if(c==null) c=t.getCognome();
+			if(cf==null) cf=t.getCod_fiscale();
+			if(p==null) p=t.getPassword();
+			if(r==null) r=t.getRuolo();
+			digest = MessageDigest.getInstance("SHA-1");
+			digest.reset();
+			digest.update(p.getBytes("utf8"));
+			sha1 = String.format("%040x", new BigInteger(1, digest.digest()));
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ps.setString(1, n);
 			ps.setString(2, c);
 			ps.setString(3, cf);
-			ps.setString(4, p);
+			ps.setString(4, sha1);
 			ps.setString(5, r);
-			ps.setString(6, cod);
+			ps.setString(6, t.getCod_fiscale());
 			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -173,6 +178,13 @@ public class UtenteDAO implements GenericDAO<Utente>{
 			if(l.get(i) instanceof Scrutinatore) num++;
 		}
 		return num;
+	}
+	
+	public Boolean checkPassword() {
+		
+		
+		
+		return true;
 	}
 	
 }

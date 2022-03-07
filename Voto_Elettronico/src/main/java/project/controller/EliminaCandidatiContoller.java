@@ -72,7 +72,33 @@ public class EliminaCandidatiContoller extends Controller implements Initializab
 
     @FXML
     void selectedCandidato(MouseEvent event) {
+    	ConcorrenteDAO dao=(ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
+    	Candidato p = listCandidati.getSelectionModel().getSelectedItem();
+    	if(p!= null) {
+    		List<Candidato> l= dao.getCandidati(p.getId());
+    		listCandidati.setCellFactory(new Callback<ListView<Candidato>, ListCell<Candidato>>(){
+    			
+    			@Override
+    		    public ListCell<Candidato> call(ListView<Candidato> list) {
+    		        ListCell<Candidato> cell = new ListCell<Candidato>() {
+    		            @Override
+    		            public void updateItem(Candidato item, boolean empty) {
+    		                super.updateItem(item, empty);
+    		                if(item!= null) {
+    		                	setText(item.getNome());
+    		                }else {
+    		                	setText(null);
+    		                }
+    		            }
+    		        };
 
+    		        return cell;
+    		    }
+    		});
+    		listCandidati.getItems().setAll(l);
+    	}else {
+    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Selezionare il Candidato").showAndWait();
+    	}
     }
 
     @FXML
