@@ -58,7 +58,7 @@ public class LoginPresenzaController extends Controller{
     				AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "il codice fiscale e o la password sono errati").showAndWait();
     			} else {
     				VotoLogger.writeToLog("Loggato:"+u.getNome());
-    				changeView("/view/elettore.fxml", null);
+    				changeView("/view/AccediSessioneController.fxml", el);
     			}
     		}
     	}
