@@ -129,7 +129,6 @@ public class VotoDAO implements GenericDAO<Voto>{
 	//ritorna false se non ha votato, true se ha votato
 	public Boolean checkVoto(String id, int sessione) {
 		String query="SELECT COUNT(*) FROM votazione WHERE sessione=? AND elettore=?";
-		int num=1;
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
@@ -137,14 +136,14 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setString(2, id);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
-				num=rs.getInt(1);
+				if(rs.getInt(0)==1) return true;
+				else return false;
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("error: ", Level.WARNING, e);
 		}
-		if(num==0) return false;
-		return true;
+		return false;
 	}
 	
 	//

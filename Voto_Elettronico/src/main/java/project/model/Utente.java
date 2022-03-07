@@ -5,7 +5,6 @@ package project.model;
  *
  */
 
-
 public abstract class Utente {
 	//ATTRIBUTI
 	protected String cod_fiscale;
