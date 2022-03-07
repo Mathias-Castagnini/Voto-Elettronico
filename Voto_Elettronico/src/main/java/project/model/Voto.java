@@ -2,10 +2,11 @@ package project.model;
 
 public class Voto {
 
-	 int id;
-	 int sessione;
-	 int candidato;
-	 Boolean esito;
+	 private int id;
+	 private int sessione;
+	 private int candidato;
+	 private Boolean esito;
+	 private String id_elettore;
 	 
 	 public Voto(int id, int s, int c) {
 		 this.id=id;
@@ -14,11 +15,12 @@ public class Voto {
 		 this.esito=null;
 	 }
 	 
-	 public Voto(int id, int s, int c, Boolean e) {
+	 public Voto(int id, int s, int c, Boolean e,String elettore) {
 		 this.id=id;
 		 this.sessione=s;
 		 this.candidato=c;
 		 this.esito=e;
+		 this.id_elettore=elettore;
 	 }
 
 	public int getId() {
