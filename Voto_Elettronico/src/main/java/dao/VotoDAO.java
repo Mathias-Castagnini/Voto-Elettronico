@@ -83,6 +83,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps = DBConnection.getInstance().prepara(query);
 			ps.setInt(1, v.getSessione());
 			ps.setString(2, l.getCod_fiscale());
+			ps.setString(5, l.getCod_fiscale());
 			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -136,7 +137,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setString(2, id);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
-				num=rs.getInt(0);
+				num=rs.getInt(1);
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
@@ -190,7 +191,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 	public Concorrente votoReferendum(Sessione s) throws Exception{
 		if(!(s.getVittoria().equals("referendum") || s.getVittoria().equals("referendum quorum"))) throw new Exception();
 		String query="";
-		List<Voto> l=null;
+		List<Voto> l= new ArrayList<Voto>();
 		if(s.getVittoria().equals("referendum")) {
 			query="SELECT * FROM voto WHERE esito!=NULL AND sessione=?";
 			try {
@@ -241,7 +242,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 		Concorrente p = votoCategorico(s);
 		if(p instanceof Candidato) return p;
 		String query="SELECT * FROM candidato WHERE id_partito=?";
-		List<Candidato> l=null;
+		List<Candidato> l=new ArrayList<Candidato>();
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
@@ -288,13 +289,13 @@ public class VotoDAO implements GenericDAO<Voto>{
 	}
 
 	public Concorrente votoOrdinale(Sessione s) {
-		ConcorrenteDAO c=null;
+		ConcorrenteDAO c= new ConcorrenteDAO();
 		List<Concorrente> l = c.getCandidatiSessione(s);
 		HashMap<Concorrente, Integer> map=new HashMap<Concorrente,Integer>();
 		for(int i=0;i<l.size();i++) {
 			map.put(l.get(i),countVotoCandidato(s.getId(),l.get(i).getId()));
 		}
-		l=null;
+		l.clear();
 		while(map.size()!=0) {
 			Concorrente d = getMax(map);
 			l.add(d);
