@@ -45,7 +45,7 @@ public class HomeController extends Controller{
     		} else if(u.isElettore()) {
     				Elettore elettore= (Elettore) u;
     				VotoLogger.writeToLog("Loggato:"+u.getNome());
-    				changeView("/view/elettore.fxml",elettore);
+    				changeView("/view/accediSessione.fxml",elettore);
     		} else{
     				Scrutinatore scrutinatore = (Scrutinatore) u;
     				VotoLogger.writeToLog("Loggato:"+u.getNome());
