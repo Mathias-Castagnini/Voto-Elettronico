@@ -26,6 +26,10 @@ public abstract class Concorrente {
 		this.nome=nome;
 	}
 	
+	public int getIdPartito() {
+		return this.id_partito;
+	}
+	
 	public abstract  int isPartito();
 	
 }

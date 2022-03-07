@@ -8,14 +8,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Level;
 
 import dbconnection.DBConnection;
 import logger.VotoLogger;
+import project.model.Candidato;
+import project.model.Concorrente;
 import project.model.Elettore;
+import project.model.Partito;
 import project.model.Scrutinatore;
+import project.model.Sessione;
 import project.model.Utente;
+import dao.ConcorrenteDAO;
 
 public class UtenteDAO implements GenericDAO<Utente>{
 
@@ -150,9 +156,7 @@ public class UtenteDAO implements GenericDAO<Utente>{
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("Error:", Level.WARNING, e);
-		}
-		
-		
+		}		
 	}
 
 	

@@ -3,7 +3,7 @@ package project.model;
 import java.util.Iterator;
 import java.util.List;
 
-public class Sessione implements Iterable{
+public class Sessione{
 	
 	int id;
 	String tipologia;
@@ -20,6 +20,17 @@ public class Sessione implements Iterable{
 		if(!(tipologia.equals("referendum")) && (vittoria.equals("referendum") || vittoria.equals("referendum quorum"))) throw new Exception();
 		this.domanda = domanda;
 		this.stato=true;
+	}
+	
+	public Sessione(int id,String tipologia, String vittoria, String domanda, Boolean stato) throws Exception {
+		this.id = id;
+		this.tipologia = tipologia;
+		this.vittoria = vittoria;
+		if(tipologia.equals("referendum") && domanda==null) throw new Exception();
+		if(!(tipologia.equals("referendum") && (vittoria.equals("referendum") || vittoria.equals("referendum quorum")))) throw new Exception();
+		if(!(tipologia.equals("referendum")) && (vittoria.equals("referendum") || vittoria.equals("referendum quorum"))) throw new Exception();
+		this.domanda = domanda;
+		this.stato=stato;
 	}
 	
 	public int getId() {
@@ -58,10 +69,5 @@ public class Sessione implements Iterable{
 		return this.stato;
 	}
 
-	@Override
-	public Iterator iterator() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 }

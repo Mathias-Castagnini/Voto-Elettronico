@@ -2,7 +2,7 @@ package project.model;
 
 public class Partito extends Concorrente{
 
-	public Partito(int id,String nome,int partito) {
+	public Partito(int id,String nome, int partito) {
 		super(id,nome, null, partito);
 		
 	}
