@@ -158,7 +158,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			VotoLogger.writeToLog("Error:", Level.WARNING, e);
 		}
 		switch(s.getTipologia()) {
-			case "ordinale":
+			case "ordinale": //
 				k=votoOrdinale(s);
 				break;
 			case "categorico": //ok
@@ -277,7 +277,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 	}
 
 	private Concorrente votoOrdinale(Sessione s) {
-		//
+		
 		return null;
 	}
 
