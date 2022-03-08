@@ -9,6 +9,7 @@ import java.util.logging.Level;
 
 import dbconnection.DBConnection;
 import logger.VotoLogger;
+import project.model.Concorrente;
 import project.model.Sessione;
 
 public class SessioneDAO implements GenericDAO<Sessione>{
@@ -69,6 +70,8 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 
 	@Override
 	public void save(Sessione t) {
+		ConcorrenteDAO c = new ConcorrenteDAO();
+		List<Concorrente> l =c.getAll();
 		String query="INSERT INTO sessione(tipologia, vittoria, domanda, stato) VALUES(?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();
@@ -78,6 +81,13 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 			ps.setString(3, t.getDomanda());
 			ps.setBoolean(4, t.getStato());
 			ps.executeUpdate();
+			for(int i=0;i<l.size();i++) {
+				query="INSERT INTO partecipazione(candidato,sessione) VALUES(?,?)";
+				ps=DBConnection.getInstance().prepara(query);
+				ps.setInt(1, l.get(i).getId());
+				ps.setInt(2, t.getId());
+				ps.executeUpdate();
+			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("Error: ", Level.WARNING, e);
