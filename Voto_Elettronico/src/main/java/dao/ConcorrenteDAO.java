@@ -226,7 +226,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 	}
 	
 	public List<Concorrente> getAll(Sessione s) {
-		List<Concorrente> l=null;
+		List<Concorrente> l=new ArrayList<Concorrente>();
 		String query="SELECT candidato FROM partecipazione WHERE sessione=?";
 		try {
 			DBConnection.getInstance().openConnection();
@@ -234,7 +234,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			ps.setInt(1, s.getId());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				l.add(get(""+rs.getInt("id")));
+				l.add(get(""+rs.getInt("candidato")));
 			}
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
