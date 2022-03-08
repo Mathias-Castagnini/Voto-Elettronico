@@ -342,4 +342,19 @@ public class VotoDAO implements GenericDAO<Voto>{
 		return d.get(""+id);
 	}
 	
+	public void schedaBianca(int sessione, String elettore) {
+		String query="INSERT INTO votazione(sessione,elettore) VALUES(?,?)";
+		try {
+			DBConnection.getInstance().openConnection();
+			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			ps.setInt(1, sessione);
+			ps.setString(2, elettore);
+			ps.executeUpdate();
+			DBConnection.getInstance().closeConnection();
+		}catch(SQLException e) {
+			VotoLogger.writeToLog("Error:", Level.WARNING, e);
+		}
+		
+	}
+	
 }
