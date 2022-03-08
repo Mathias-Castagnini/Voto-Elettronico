@@ -70,7 +70,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 	
 	public void save(Voto v, Elettore l){
 		if(checkVoto(l.getCod_fiscale(),v.getSessione())) throw new IllegalArgumentException();
-		String query="INSERT INTO voto(id,sessione,candidato,esito,elettore) VALUES(?,?,?,?)";
+		String query="INSERT INTO voto(id,sessione,candidato,esito) VALUES(?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
@@ -83,7 +83,6 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps = DBConnection.getInstance().prepara(query);
 			ps.setInt(1, v.getSessione());
 			ps.setString(2, l.getCod_fiscale());
-			ps.setString(5, l.getCod_fiscale());
 			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
