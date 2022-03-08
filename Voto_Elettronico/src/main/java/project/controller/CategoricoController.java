@@ -80,7 +80,7 @@ public class CategoricoController extends Controller{
     	Candidato c= listCandidati.getSelectionModel().getSelectedItem();
     	VotoDAO dao= (VotoDAO) DAOFactory.getInstance().getVotoDAO();
     	if (p == null && c== null) {
-    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Non hai selezionato nulla").showAndWait();
+    		dao.schedaBianca(s.getId(), log.getCod_fiscale());
     	}else {
     		if(votaPartito.isSelected()) {
     			Voto v= new Voto(0,s.getId(),p.getId());
