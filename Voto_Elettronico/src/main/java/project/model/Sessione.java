@@ -28,13 +28,10 @@ public class Sessione{
 		this.p=p;
 	}
 	
-	public Sessione(int id,String tipologia, String vittoria, String domanda, Boolean stato) throws Exception {
+	public Sessione(int id,String tipologia, String vittoria, String domanda, Boolean stato) {
 		this.id = id;
 		this.tipologia = tipologia;
 		this.vittoria = vittoria;
-		if(tipologia.equals("referendum") && domanda==null) throw new Exception();
-		if(!(tipologia.equals("referendum") && (vittoria.equals("referendum") || vittoria.equals("referendum quorum")))) throw new Exception();
-		if(!(tipologia.equals("referendum")) && (vittoria.equals("referendum") || vittoria.equals("referendum quorum"))) throw new Exception();
 		this.domanda = domanda;
 		this.stato=stato;
 	}

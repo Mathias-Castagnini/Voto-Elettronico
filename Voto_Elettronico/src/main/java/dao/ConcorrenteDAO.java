@@ -244,7 +244,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 	}
 
 	public List<Concorrente> getCandidatiSessione(Sessione s){
-		List<Concorrente> l =null;
+		List<Concorrente> l =new ArrayList<>();
 		String query="SELECT id FROM candidato JOIN partecipazione WHERE sessione=? AND is_partito=0";
 		try {
 			DBConnection.getInstance().openConnection();

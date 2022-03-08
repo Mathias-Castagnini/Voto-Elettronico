@@ -118,7 +118,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setInt(2, sessione);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
-				num=rs.getInt(0);
+				num=rs.getInt(1);
 			DBConnection.getInstance().closeConnection();
 		}catch(SQLException e) {
 			VotoLogger.writeToLog("error: ", Level.WARNING, e);
@@ -151,8 +151,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 	//
 	
 	
-	public Concorrente esitoSessione(Utente c, int idSessione) throws Exception {
-		if(!(c instanceof Scrutinatore)) throw new Exception();
+	public Concorrente esitoSessione(int idSessione){
 		Sessione s = null;
 		Concorrente k = null;
 		String query="SELECT * FROM sessione where id=?";
@@ -182,13 +181,12 @@ public class VotoDAO implements GenericDAO<Voto>{
 				k=votoReferendum(s);
 				break;
 			default:
-				throw new Exception();
+				throw new IllegalArgumentException();
 		}		
 		return k;
 	}
 	
-	public Concorrente votoReferendum(Sessione s) throws Exception{
-		if(!(s.getVittoria().equals("referendum") || s.getVittoria().equals("referendum quorum"))) throw new Exception();
+	public Concorrente votoReferendum(Sessione s){
 		String query="";
 		List<Voto> l= new ArrayList<Voto>();
 		if(s.getVittoria().equals("referendum")) {
