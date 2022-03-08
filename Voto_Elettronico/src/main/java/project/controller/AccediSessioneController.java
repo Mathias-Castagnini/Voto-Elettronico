@@ -50,7 +50,7 @@ public class AccediSessioneController extends Controller implements Initializabl
 				changeView("/view/votoCategorico.fxml",List.of(log,s));
 				break;
 			case "categorico preferenza":
-				changeView("/view/votoVategoricoPreferenza.fxml",List.of(log,s));
+				changeView("/view/votoCategoricoPreferenza.fxml",List.of(log,s));
 				break;
 			default:
 				break;
