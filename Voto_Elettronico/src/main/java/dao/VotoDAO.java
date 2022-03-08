@@ -76,7 +76,8 @@ public class VotoDAO implements GenericDAO<Voto>{
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ps.setInt(1, v.getId());
 			ps.setInt(2, v.getSessione());
-			ps.setInt(3, v.getCandidato());
+			if(v.getCandidato()==0)	ps.setInt(3, (Integer) null);
+			else ps.setInt(3, (Integer) v.getCandidato());
 			ps.setBoolean(4, v.getEsito());
 			ps.executeUpdate();
 			query="INSERT INTO votazione(sessione,elettore) VALUES(?,?)";
