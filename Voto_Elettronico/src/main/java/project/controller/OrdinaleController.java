@@ -38,11 +38,6 @@ public class OrdinaleController extends Controller{
 
     @FXML
     void selezionaCandidato(MouseEvent event) {
-    	
-    }
-
-    @FXML
-    void selezionaPartito(MouseEvent event) {
     	ConcorrenteDAO dao=(ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
     	Candidato p = listCandidati.getSelectionModel().getSelectedItem();
     	if(p!= null) {
@@ -73,8 +68,39 @@ public class OrdinaleController extends Controller{
     }
 
     @FXML
-    void vota(ActionEvent event) {
+    void selezionaPartito(MouseEvent event) {
+    	ConcorrenteDAO dao=(ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
+    	Partito p = listPartiti.getSelectionModel().getSelectedItem();
+    	if(p!= null) {
+    		List<Candidato> l= dao.getCandidati(p.getId());
+    		listCandidati.setCellFactory(new Callback<ListView<Candidato>, ListCell<Candidato>>(){
+    			
+    			@Override
+    		    public ListCell<Candidato> call(ListView<Candidato> list) {
+    		        ListCell<Candidato> cell = new ListCell<Candidato>() {
+    		            @Override
+    		            public void updateItem(Candidato item, boolean empty) {
+    		                super.updateItem(item, empty);
+    		                if(item!= null) {
+    		                	setText(item.getNome());
+    		                }else {
+    		                	setText(null);
+    		                }
+    		            }
+    		        };
 
+    		        return cell;
+    		    }
+    		});
+    		listCandidati.getItems().setAll(l);
+    	}else {
+    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Selezionare il Candidato").showAndWait();
+    	}
+    }
+
+    @FXML
+    void vota(ActionEvent event) {
+    	
     }
 
 	@Override
@@ -85,7 +111,6 @@ public class OrdinaleController extends Controller{
 		
 		ConcorrenteDAO dao = (ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
 		List<Concorrente> l=dao.getAll(s);
-		System.out.println(l.toString());
 		for (Concorrente concorrente : l) {
 			if(concorrente.isPartito()==1) {
 				listPartiti.getItems().add((Partito)concorrente);
