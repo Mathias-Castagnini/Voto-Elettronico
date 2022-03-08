@@ -3,13 +3,16 @@ package dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 
+
 import dbconnection.DBConnection;
 import logger.VotoLogger;
 import project.model.Concorrente;
+import project.model.Partito;
 import project.model.Sessione;
 
 public class SessioneDAO implements GenericDAO<Sessione>{
@@ -71,21 +74,26 @@ public class SessioneDAO implements GenericDAO<Sessione>{
 	@Override
 	public void save(Sessione t) {
 		ConcorrenteDAO c = new ConcorrenteDAO();
-		List<Concorrente> l =c.getAll();
+		List<Partito> l =t.getPartiti();
 		String query="INSERT INTO sessione(tipologia, vittoria, domanda, stato) VALUES(?,?,?,?)";
 		try {
 			DBConnection.getInstance().openConnection();
-			PreparedStatement ps = DBConnection.getInstance().prepara(query);
+			PreparedStatement ps = DBConnection.getInstance().prepara(query,Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, t.getTipologia());
 			ps.setString(2, t.getVittoria());
 			ps.setString(3, t.getDomanda());
 			ps.setBoolean(4, t.getStato());
 			ps.executeUpdate();
+			ResultSet rs = ps.getGeneratedKeys();
+			int x=0;
+			while(rs.next()) {
+				x =(rs.getInt(1));
+			}
 			for(int i=0;i<l.size();i++) {
 				query="INSERT INTO partecipazione(candidato,sessione) VALUES(?,?)";
 				ps=DBConnection.getInstance().prepara(query);
 				ps.setInt(1, l.get(i).getId());
-				ps.setInt(2, t.getId());
+				ps.setInt(2, x);
 				ps.executeUpdate();
 			}
 			DBConnection.getInstance().closeConnection();

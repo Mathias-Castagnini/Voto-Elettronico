@@ -75,4 +75,7 @@ public class Sessione{
 		return this.stato;
 	}
 
+	public List<Partito> getPartiti(){
+		return p;
+	}
 }
