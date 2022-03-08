@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 
 import dao.ConcorrenteDAO;
 import dao.SessioneDAO;
+import dao.VotoDAO;
 import factory.AlertFactory;
 import factory.DAOFactory;
 import javafx.event.ActionEvent;
@@ -22,6 +23,7 @@ import project.model.Concorrente;
 import project.model.Elettore;
 import project.model.Partito;
 import project.model.Sessione;
+import project.model.Voto;
 
 public class OrdinaleController extends Controller{
 
@@ -38,33 +40,6 @@ public class OrdinaleController extends Controller{
 
     @FXML
     void selezionaCandidato(MouseEvent event) {
-    	ConcorrenteDAO dao=(ConcorrenteDAO) DAOFactory.getInstance().getConcorrenteDAO();
-    	Candidato p = listCandidati.getSelectionModel().getSelectedItem();
-    	if(p!= null) {
-    		List<Candidato> l= dao.getCandidati(p.getId());
-    		listCandidati.setCellFactory(new Callback<ListView<Candidato>, ListCell<Candidato>>(){
-    			
-    			@Override
-    		    public ListCell<Candidato> call(ListView<Candidato> list) {
-    		        ListCell<Candidato> cell = new ListCell<Candidato>() {
-    		            @Override
-    		            public void updateItem(Candidato item, boolean empty) {
-    		                super.updateItem(item, empty);
-    		                if(item!= null) {
-    		                	setText(item.getNome());
-    		                }else {
-    		                	setText(null);
-    		                }
-    		            }
-    		        };
-
-    		        return cell;
-    		    }
-    		});
-    		listCandidati.getItems().setAll(l);
-    	}else {
-    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Selezionare il Candidato").showAndWait();
-    	}
     }
 
     @FXML
@@ -100,7 +75,18 @@ public class OrdinaleController extends Controller{
 
     @FXML
     void vota(ActionEvent event) {
-    	
+    	Partito p = listPartiti.getSelectionModel().getSelectedItem();
+    	Candidato c= listCandidati.getSelectionModel().getSelectedItem();
+    	VotoDAO dao= (VotoDAO) DAOFactory.getInstance().getVotoDAO();
+    	if(p == null && c== null) {
+    		AlertFactory.getInstance().getSlimAlert(AlertType.ERROR, "Non hai selezionato nulla").showAndWait();
+    	}else if(c == null) {
+    		Voto v= new Voto(0,s.getId(),p.getId());
+    		dao.save(v, log);
+    	}else {
+    		Voto v= new Voto(0,s.getId(),c.getId());
+    		dao.save(v, log);
+    	}
     }
 
 	@Override

@@ -11,7 +11,7 @@ public class Voto {
 		 this.id=id;
 		 this.sessione=s;
 		 this.candidato=c;
-		 this.esito=null;
+		 this.esito=false;
 	 }
 	 
 	 public Voto(int id, int sessione, int candidato, Boolean esito) {
