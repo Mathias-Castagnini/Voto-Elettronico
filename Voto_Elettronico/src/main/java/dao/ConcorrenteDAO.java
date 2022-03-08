@@ -110,7 +110,7 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 	public void save(Concorrente t) {
 	}
 
-	public void saveCandidato(Candidato c) {
+	public void saveCandidato(Candidato c, Sessione s) {
 		String query = "INSERT INTO candidato(id, nome, cognome, id_partito, is_partito) VALUES (?,?,?,?,0)";
 		try {
 			DBConnection.getInstance().openConnection();
@@ -120,6 +120,11 @@ public class ConcorrenteDAO implements GenericDAO<Concorrente> {
 			ps.setString(2, c.getCognome());
 			ps.setInt(3, c.getPartito());
 			ps.setInt(4, 0);
+			ps.executeUpdate();
+			query="INSERT INTO partecipazione(candidato,sessione) VALUES(?,?)";
+			ps=DBConnection.getInstance().prepara(query);
+			ps.setInt(1, c.getId());
+			ps.setInt(2, s.getId());
 			ps.executeUpdate();
 			DBConnection.getInstance().closeConnection();
 		} catch (SQLException e) {
