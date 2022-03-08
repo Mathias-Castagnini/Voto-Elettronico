@@ -75,5 +75,4 @@ public class Sessione{
 		return this.stato;
 	}
 
-
 }

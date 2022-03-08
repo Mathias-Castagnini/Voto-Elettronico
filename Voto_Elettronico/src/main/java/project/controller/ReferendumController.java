@@ -12,6 +12,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import logger.VotoLogger;
 import project.model.Elettore;
 import project.model.Sessione;
 import project.model.Voto;
@@ -33,14 +34,16 @@ public class ReferendumController extends Controller{
     void favorevole(ActionEvent event) {
     	VotoDAO dao = (VotoDAO) DAOFactory.getInstance().getVotoDAO();
     	Voto v=new Voto(0,s.getId(),0,true);
-		dao.save(v, log);;
+		dao.save(v, log);
+		changeView("/view/home.fxml",null);
     }
 
     @FXML
     void nonFavorevole(ActionEvent event) {
     	VotoDAO dao = (VotoDAO) DAOFactory.getInstance().getVotoDAO();
     	Voto v=new Voto(0,s.getId(),0,false);
-		dao.save(v, log);;
+		dao.save(v, log);
+		changeView("/view/home.fxml",null);
     }
 
 	@Override

@@ -35,7 +35,7 @@ public class AccediSessioneController extends Controller implements Initializabl
 
     @FXML
     void vota(ActionEvent event) {
-    	Sessione s = null;
+    	Sessione s;
     	s = listSessioni.getSelectionModel().getSelectedItem();
     	if(s!=null) {
     		String modVoto = s.getTipologia();

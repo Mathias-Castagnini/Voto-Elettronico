@@ -76,7 +76,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			PreparedStatement ps = DBConnection.getInstance().prepara(query);
 			ps.setInt(1, v.getId());
 			ps.setInt(2, v.getSessione());
-			if(v.getCandidato()==0)	ps.setInt(3, (Integer) null);
+			if(v.getCandidato()==0)	ps.setObject(3, null);
 			else ps.setInt(3, (Integer) v.getCandidato());
 			ps.setBoolean(4, v.getEsito());
 			ps.executeUpdate();
@@ -136,7 +136,7 @@ public class VotoDAO implements GenericDAO<Voto>{
 			ps.setString(2, id);
 			ResultSet rs=ps.executeQuery();
 			while(rs.next()) {
-				if(rs.getInt(0)==1) return true;
+				if(rs.getInt(1)==1) return true;
 				else return false;
 			}
 			DBConnection.getInstance().closeConnection();
