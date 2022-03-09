@@ -1,15 +1,17 @@
 package project.model;
 
-import java.util.Iterator;
 import java.util.List;
 
 public class Sessione{
 	
-	private int id;
-	private String tipologia;
-	private String vittoria;
+	/*@   invariant tipologia.equals("referendum") -> domanda!=null @*/
+	/*@   invariant !tipologia.equals("referendum") -> domanda==null @*/
+	
+	private int /*@ non_null; spec_public@*/ id;
+	private String /*@ non_null; spec_public@*/ tipologia;
+	private String /*@ non_null; spec_public@*/ vittoria;
 	private String domanda;
-	private boolean stato;
+	private boolean /*@ non_null; spec_public@*/ stato;
 	private List<Partito> p;
 	
 	public Sessione(int id,String tipologia, String vittoria,boolean stato, String domanda){
